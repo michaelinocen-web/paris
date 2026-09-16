@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paris · Luxembourg · Brussels · Bruges — Trip Dossier</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧳</text></svg>">
+<style>
+  :root {
+    --bg: #F2EBD8;
+    --panel: #FFFCF4;
+    --panel-2: #EAE0C2;
+    --ink: #232840;
+    --ink-soft: #5C6079;
+    --brass: #8F6C2E;
+    --brass-deep: #6E521F;
+    --rule: #D7C99C;
+    --shadow: rgba(35,40,58,.14);
+    --ok-bg: #E4EEDF;
+    --ok-ink: #3C5C34;
+    --warn-bg: #F6E6D2;
+    --warn-ink: #7A4A17;
+
+    --paris: #8C3B3B;
+    --lux: #45604A;
+    --brussels: #A8791F;
+    --bruges: #256167;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14192A;
+      --panel: #1E2438;
+      --panel-2: #262D46;
+      --ink: #F1ECDA;
+      --ink-soft: #B2B6CB;
+      --brass: #D8B770;
+      --brass-deep: #C49B54;
+      --rule: #383F5C;
+      --shadow: rgba(0,0,0,.4);
+      --ok-bg: #223423;
+      --ok-ink: #A9D3A0;
+      --warn-bg: #3A2C18;
+      --warn-ink: #E4B57E;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14192A;
+    --panel: #1E2438;
+    --panel-2: #262D46;
+    --ink: #F1ECDA;
+    --ink-soft: #B2B6CB;
+    --brass: #D8B770;
+    --brass-deep: #C49B54;
+    --rule: #383F5C;
+    --shadow: rgba(0,0,0,.4);
+    --ok-bg: #223423;
+    --ok-ink: #A9D3A0;
+    --warn-bg: #3A2C18;
+    --warn-ink: #E4B57E;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body { padding-bottom: 60px; }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+
+  /* ---------- Header ---------- */
+  header.hero {
+    background: linear-gradient(180deg, var(--panel-2), var(--bg));
+    border-bottom: 1px solid var(--rule);
+    padding: 30px 0 18px;
+  }
+  .hero-inner { text-align: center; }
+  .hero-eyebrow {
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    margin: 0 0 6px;
+  }
+  h1.hero-title {
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    margin: 0 0 6px;
+    line-height: 1.15;
+  }
+  .hero-dates {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin: 0 0 16px;
+  }
+  .progress-wrap {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .progress-label {
+    display: flex; justify-content: space-between;
+    font-size: 0.8rem; color: var(--ink-soft);
+    margin-bottom: 5px;
+  }
+  .progress-track {
+    height: 8px; border-radius: 5px;
+    background: var(--panel-2);
+    border: 1px solid var(--rule);
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--brass);
+    width: 0%;
+    transition: width .35s ease;
+  }
+  .reset-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    text-decoration: underline;
+    cursor: pointer;
+    background: none; border: none; font-family: inherit;
+  }
+  .reset-link:hover { color: var(--ink); }
+
+  /* ---------- Day tabs ---------- */
+  nav.day-tabs {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+    padding: 10px 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .day-tabs-inner {
+    display: flex; gap: 8px;
+    padding: 0 16px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .day-tab {
+    flex: 0 0 auto;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.78rem;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--rule);
+    background: var(--panel);
+    color: var(--ink-soft);
+    cursor: pointer;
+    white-space: nowrap;
+    text-align: left;
+    line-height: 1.3;
+  }
+  .day-tab .dt-day { display: block; font-weight: 700; color: var(--ink); }
+  .day-tab .dt-count { display: block; font-size: 0.7rem; margin-top: 2px; }
+  .day-tab.active {
+    border-color: var(--accent, var(--brass));
+    background: var(--panel-2);
+    box-shadow: inset 0 0 0 1px var(--accent, var(--brass));
+  }
+  .day-tab.active .dt-day { color: var(--accent, var(--brass-deep)); }
+
+  /* ---------- Day panel ---------- */
+  main { padding-top: 22px; }
+  .day-panel { display: none; }
+  .day-panel.active { display: block; }
+
+  .day-head {
+    border-left: 4px solid var(--accent, var(--brass));
+    padding-left: 14px;
+    margin-bottom: 14px;
+  }
+  .day-head .part-title {
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0 0 2px;
+  }
+  .day-head .part-date {
+    font-size: 0.88rem;
+    color: var(--accent-deep, var(--brass-deep));
+    font-style: italic;
+    margin: 0;
+  }
+  .day-intro {
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 12px 0;
+  }
+
+  .info-strip {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin: 12px 0;
+    font-size: 0.82rem;
+  }
+  .info-chip {
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 7px 11px;
+    color: var(--ink-soft);
+  }
+  .info-chip b { color: var(--ink); font-weight: 600; }
+  .info-chip a { color: var(--brass-deep); }
+
+  .note-card {
+    border-radius: 8px;
+    padding: 10px 13px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 10px 0;
+    border: 1px solid var(--rule);
+    background: var(--warn-bg);
+    color: var(--warn-ink);
+  }
+  .note-card b { font-weight: 700; }
+  .note-card.personal { background: var(--ok-bg); color: var(--ok-ink); }
+
+  .transfer-card {
+    background: var(--panel);
+    border: 1px dashed var(--rule);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin: 14px 0 18px;
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .transfer-card b { color: var(--ink); }
+
+  .section-label {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    text-transform: none;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    margin: 22px 0 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-label::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* ---------- Stop rows ---------- */
+  ul.stop-list { list-style: none; margin: 0; padding: 0; }
+  li.stop {
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    background: var(--panel);
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+  .stop-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 11px 12px;
+    cursor: pointer;
+  }
+  .stop-check {
+    flex: 0 0 auto;
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    border: 1.5px solid var(--rule);
+    background: var(--panel-2);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .stop-check.checked {
+    background: var(--brass);
+    border-color: var(--brass-deep);
+  }
+  .stop-check svg { width: 13px; height: 13px; display: none; stroke: white; stroke-width: 3; }
+  .stop-check.checked svg { display: block; }
+
+  .stop-time {
+    flex: 0 0 auto;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.76rem;
+    color: var(--accent-deep, var(--brass-deep));
+    min-width: 58px;
+  }
+  .stop-name {
+    flex: 1 1 auto;
+    font-size: 0.94rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  li.stop.done .stop-name { color: var(--ink-soft); text-decoration: line-through; text-decoration-color: var(--rule); }
+  .stop-preview {
+    padding: 0 12px 11px 12px;
+    margin-top: -4px;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px;
+    justify-content: flex-start;
+  }
+  li.meal .stop-preview { padding-left: 14px; }
+  .stop-preview a.maplink-mini {
+    flex: 0 0 auto;
+    order: -1;
+    color: var(--accent-deep, var(--brass-deep));
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    white-space: nowrap;
+  }
+  .stop-preview .dist-text { flex: 0 1 auto; min-width: 0; }
+  .badge {
+    flex: 0 0 auto;
+    font-size: 0.66rem;
+    font-weight: 700;
+    padding: 3px 7px;
+    border-radius: 5px;
+    background: var(--ok-bg);
+    color: var(--ok-ink);
+    white-space: nowrap;
+  }
+  .badge.warn { background: var(--warn-bg); color: var(--warn-ink); }
+  .chev {
+    flex: 0 0 auto;
+    width: 18px; height: 18px;
+    color: var(--ink-soft);
+    transition: transform .2s ease;
+  }
+  li.stop.open .chev { transform: rotate(180deg); }
+
+  .stop-detail {
+    display: none;
+    padding: 2px 16px 16px 44px;
+    font-size: 0.86rem;
+    line-height: 1.55;
+    border-top: 1px solid var(--rule);
+    background: var(--panel-2);
+  }
+  li.stop.open .stop-detail { display: block; }
+  .stop-detail .row { margin: 8px 0; }
+  .stop-detail .row b { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent-deep, var(--brass-deep)); margin-bottom: 2px; }
+  .stop-detail a.maplink {
+    display: inline-flex; align-items: center; gap: 5px;
+    margin-top: 6px;
+    font-size: 0.82rem; font-weight: 600;
+    color: var(--accent-deep, var(--brass-deep));
+    text-decoration: none;
+    border: 1px solid currentColor;
+    padding: 5px 10px;
+    border-radius: 7px;
+  }
+  .stop-detail a.maplink:hover { background: var(--accent-deep, var(--brass-deep)); color: var(--panel); }
+  .stop-detail .booking {
+    margin-top: 10px;
+    padding: 8px 10px;
+    background: var(--warn-bg);
+    color: var(--warn-ink);
+    border-radius: 7px;
+    font-size: 0.82rem;
+  }
+  .stop-detail .booking a { color: inherit; font-weight: 700; }
+
+  /* meal rows (no checkbox) */
+  li.meal .stop-row { padding-left: 14px; }
+  .meal-icon { font-size: 1rem; flex: 0 0 auto; }
+
+  /* generic collapsible (used for both day summary and backup spots) */
+  .collapsible {
+    border: 1px dashed var(--rule);
+    border-radius: 10px;
+    margin-top: 8px;
+    margin-bottom: 14px;
+    background: var(--panel);
+    overflow: hidden;
+  }
+  .collapsible-head {
+    display: flex; align-items: center; gap: 8px;
+    padding: 11px 12px;
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .collapsible-body { display: none; padding: 0 14px 14px; }
+  .collapsible.open .collapsible-body { display: block; }
+  .collapsible.open .chev { transform: rotate(180deg); }
+  .backup-item { padding: 10px 0; border-top: 1px solid var(--rule); font-size: 0.85rem; line-height: 1.5; }
+  .backup-item:first-child { border-top: none; }
+  .backup-item .bname { font-weight: 700; }
+  .backup-item a.maplink-inline { color: var(--accent-deep, var(--brass-deep)); font-weight: 600; text-decoration: none; border-bottom: 1px solid currentColor; }
+  .summary-body .day-intro { margin-top: 4px; }
+  .summary-body .info-strip { margin: 10px 0 0; }
+  .summary-body .note-card { margin: 10px 0 0; }
+  .summary-body .transfer-card { margin: 10px 0 0; }
+
+
+  .closing-note {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--ink-soft);
+    margin: 18px 0 6px;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+  }
+
+  footer {
+    max-width: 760px; margin: 30px auto 0; padding: 16px;
+    text-align: center; font-size: 0.76rem; color: var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <p class="hero-eyebrow">A Seven-City-Day Trip Dossier</p>
+    <h1 class="hero-title">Paris · Luxembourg · Brussels · Bruges</h1>
+    <p class="hero-dates">October 8 – 15, 2026</p>
+    <div class="progress-wrap">
+      <div class="progress-label"><span id="progressText">0 / 0 spots visited</span><span id="progressPct">0%</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <button class="reset-link" id="resetBtn" type="button">Reset all checkmarks</button>
+  </div>
+</header>
+
+<nav class="day-tabs">
+  <div class="day-tabs-inner" id="dayTabs"></div>
+</nav>
+
+<main class="wrap" id="dayPanels"></main>
+
+<footer>
+  Built for personal use · your checkmarks are saved only in this browser, on this device.
+</footer>
+
+<script>
+/* =======================================================================
+   DATA
+   ======================================================================= */
+const CITY = {
+  paris:    { name: "Paris",      accent: "var(--paris)",    accentDeep: "var(--paris)" },
+  lux:      { name: "Luxembourg", accent: "var(--lux)",      accentDeep: "var(--lux)" },
+  brussels: { name: "Brussels",   accent: "var(--brussels)", accentDeep: "var(--brussels)" },
+  bruges:   { name: "Bruges",     accent: "var(--bruges)",   accentDeep: "var(--bruges)" },
+};
+
+function gmaps(lat, lng, pid) {
+  return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}&query_place_id=${pid}`;
+}
+function gmapsAddr(addr) {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`;
+}
+
+const TRIP = [
+// ============================================================ DAY 1 ============================================================
+{
+  id: "d1", city: "paris", dayLabel: "Day 1", dateShort: "Oct 8",
+  partTitle: "Part 1 — Arrival Day", date: "October 8, 2026",
+  intro: `Your flight lands at Orly at 12:15pm. Budget 45–60 minutes for immigration and baggage claim, then roughly 35–45 minutes into the city via Metro Line 14 (direct) or Orlyval + RER B. Realistically you'll reach the hotel around 2:30–3:00pm. From there, this evening also picks up the Arc de Triomphe and the Champs-Élysées — they were originally on Saturday morning, but Saturday is now a Versailles-and-match day, so they've moved here instead.`,
+  hotel: { label: "Hotel", address: "8 Boulevard de Strasbourg, 75010 Paris", url: gmapsAddr("8 Boulevard de Strasbourg, 75010 Paris") },
+  walking: "~3 km on foot, plus two metro hops.",
+  notes: [
+    { type: "warn", label: "Logistics Note", text: `This is a fuller arrival evening than a typical travel day, since it's absorbing two stops relocated from Saturday. If your flight or immigration runs long, drop the Champs-Élysées walk and view it from the Arc instead — the metro legs are the one part of tonight you can't compress.` },
+  ],
+  personalNotes: [
+    `🚤 <b>Booked:</b> Seine river cruise (via GetYourGuide) — no fixed time set yet.`
+  ],
+  stops: [
+    { time: "3:00pm", name: "Porte Saint-Denis", address: "Boulevard Saint-Denis, 75010 Paris",
+      mapsUrl: gmaps(48.8698004, 2.352704, "ChIJlerjPAFv5kcRLUwAmmR7W8g"),
+      distance: "5-minute walk from the hotel", recTime: "10 minutes",
+      history: `Built in 1672 on the orders of Louis XIV to commemorate his military victories along the Rhine and in the Franche-Comté campaign, designed by François Blondel and modeled directly on Roman triumphal arches like the Arch of Titus. It replaced a medieval city gate that once marked the northern edge of Paris, back when the boulevards here traced the line of the old city walls rather than being grand avenues in their own right. Blondel was also the founding director of the Académie Royale d'Architecture, and this arch was in many ways his manifesto for what French classical architecture should look like.`,
+      fact: `At nearly 25 meters tall, it was the tallest triumphal arch in Paris for over a century, until Napoleon's Arc de Triomphe surpassed it.`,
+      photoTip: `Shoot from the median of Boulevard Saint-Denis for a symmetrical, straight-on view.` },
+    { time: "3:15pm", name: "Porte Saint-Martin", address: "Boulevard Saint-Martin, 75010 Paris",
+      mapsUrl: gmaps(48.868507, 2.3629866, "ChIJ3c0rGwxu5kcRYl8YdZj1kPk"),
+      distance: "2-minute walk", recTime: "5 minutes",
+      history: `Built two years after its twin, in 1674, also honoring Louis XIV's military campaigns — this one designed by Pierre Bullet, a student of Blondel's, working to a similar classical template but with its own distinct relief program.`,
+      fact: `The reliefs on the arch depict the capture of Besançon and the defeat of German, Spanish, and Dutch forces in the Franco-Dutch War, carved by four different sculptors working simultaneously to meet the king's deadline.`,
+      photoTip: `Late-afternoon light hits the relief carvings well from the south side.` },
+    { time: "3:45pm", name: "Arc de Triomphe", address: "Place Charles de Gaulle, 75008 Paris",
+      mapsUrl: gmaps(48.8737917, 2.2950275, "ChIJjx37cOxv5kcRPWQuEW5ntdk"),
+      distance: "Metro Strasbourg–Saint-Denis → Charles de Gaulle–Étoile (~25 min, one transfer)", recTime: "15 minutes (exterior)",
+      history: `Commissioned by Napoleon in 1806 to honor his armies after the victory at Austerlitz, it wasn't completed until 1836, under Louis-Philippe, long after Napoleon's fall from power and death in exile — his body did eventually pass beneath it, though, during the 1840 procession that returned his remains to Les Invalides. It's since become the site of the Tomb of the Unknown Soldier, added in 1921, whose flame has been rekindled every evening at 6:30pm without interruption since 1923, even during the Nazi occupation of Paris.`,
+      fact: `Twelve avenues radiate from the arch in a star pattern, which is why the square was originally named Place de l'Étoile — the name survives informally even after the official 1970 renaming for de Gaulle.`,
+      photoTip: `Use the pedestrian underpass (never cross the traffic circle on foot) and shoot from the center island at the top of the Champs-Élysées.`,
+      booking: { label: "Terrace-climb tickets at the official site:", url: "https://www.paris-arc-de-triomphe.fr/" } },
+    { time: "4:00pm", name: "Champs-Élysées", address: "Avenue des Champs-Élysées, 75008 Paris",
+      mapsUrl: gmaps(48.8729602, 2.2978526, "ChIJUXgA-MRv5kcR9mSP84enoVo"),
+      distance: "Walk the avenue itself, ~25 minutes down toward Concorde", recTime: "20–25 minutes (the walk is the sightseeing)",
+      history: `Laid out in the 1660s as a garden promenade extending the sightline from the Tuileries, it evolved into Paris's grand ceremonial avenue over the 18th and 19th centuries as the city grew west and the promenade was gradually built up with grand houses, then shops. It now hosts the finish of the Tour de France and the Bastille Day military parade, and every four years is decorated with flags for a different theme representing France's overseas territories or international relations.`,
+      fact: `The name translates to "Elysian Fields," the paradise of Greek mythology.`,
+      photoTip: `Shoot back up the avenue toward the Arc as you walk — the gentle uphill grade makes for a good perspective shot looking either direction.` },
+    { time: "5:00pm", name: "Canal Saint-Martin", address: "Quai de Valmy / Quai de Jemmapes, 75010 Paris",
+      mapsUrl: gmapsAddr("Canal Saint-Martin, Quai de Valmy, 75010 Paris"),
+      distance: "Metro Concorde → Jacques Bonsergent (~20 min, one transfer), then a 5-minute walk — you're passing back through the Concorde area, though that stop itself stays on Friday's Louvre-day route", recTime: "45–60 minutes",
+      history: `Commissioned by Napoleon in 1802 to bring fresh drinking water into Paris and ease congestion on the Seine, the canal opened in 1825 with a system of nine locks and iron footbridges that still operate today, dropping the water level some 25 meters over its 4.5-kilometer course. Much of it runs underground beneath Boulevard Richard-Lenoir, a covering added under Napoleon III in the 1860s partly to prevent it from being used as a barricade line during future uprisings, as it had been in 1848 and would be again in 1871.`,
+      fact: `The canal was nearly paved over for a highway in the 1970s; a public campaign saved it, and it's now one of the most photographed corners of the 10th arrondissement.`,
+      photoTip: `The arched iron footbridge at Rue de la Grange-aux-Belles frames the canal well, especially under the plane trees.` },
+  ],
+  dinner: { name: "Chez Prune", address: "36 Rue Beaurepaire, 75010 Paris",
+    mapsUrl: gmaps(48.8717011, 2.3645708, "ChIJoTaqxQtu5kcRtabbV-ogavc"),
+    desc: `A canalside neighborhood bistro that's been a 10th-arrondissement fixture since the late 1990s — simple, honest French plates, no tourist markup, and a front-row seat to the canal's evening foot traffic.`,
+    mustTry: `Steak frites, or the seasonal tartine of the day.` },
+  backups: [
+    { name: "Passage Brady", address: "46 Rue du Faubourg Saint-Denis, 75010 Paris", mapsUrl: gmaps(48.871263, 2.3551293, "ChIJ0ZomJxJu5kcRGNi8jEUf-zg"), note: `A covered 19th-century passage nicknamed "Little India" — sari shops and curry houses, atmospheric and 10 minutes from the hotel.` },
+    { name: "Marché Couvert Saint-Quentin", address: "85 bis Boulevard de Magenta, 75010 Paris", mapsUrl: gmaps(48.8769631, 2.3551219, "ChIJnef2yI1v5kcRsiX-BMATv8Y"), note: `A handsome 19th-century covered market near Gare de l'Est — good for a browse, a coffee, or picking up something for the road tomorrow.` },
+  ],
+  closing: `Back to the hotel by 8:30–9pm — you have a 9am Louvre entry tomorrow.`
+},
+// ============================================================ DAY 2 ============================================================
+{
+  id: "d2", city: "paris", dayLabel: "Day 2", dateShort: "Oct 9",
+  partTitle: "Part 2 — Louvre Day", date: "October 9, 2026",
+  intro: `Your Louvre entry (9:00am–12:00pm) is fixed, so this morning is built backward from that appointment — a short, geographically logical string of exteriors on the walk from the hotel toward the museum.`,
+  walking: "~6 km.",
+  notes: [
+    { type: "warn", label: "Pacing Note", text: `The morning is tight by design — three quick exterior stops before a 9am timed entry. If any stop is running long, skip Sainte-Chapelle's spire detour rather than the walk to the Louvre; security lines build fast after opening.` },
+  ],
+  stops: [
+    { time: "7:15am", name: "Place des Vosges", address: "Place des Vosges, 75004 Paris",
+      mapsUrl: gmaps(48.8556114, 2.3655266, "ChIJUeiI4P9x5kcRqEwHl6V32GQ"),
+      distance: "~1.7 km from the hotel, 18-minute brisk walk", recTime: "10 minutes",
+      history: `Completed in 1612 under Henri IV, it's the oldest planned square in Paris — 36 symmetrical brick-and-stone pavilions arranged around a central garden, built as a showcase of harmonious royal urban design and originally named Place Royale. It was renamed Place des Vosges in 1800 to honor the first French département to pay its Revolutionary war taxes in full, and the square's arcaded ground floors were deliberately designed as covered walkways for shopping, a genuinely novel idea for the time.`,
+      fact: `Victor Hugo lived at No. 6 for sixteen years and wrote much of Les Misérables there; the building is now a small museum dedicated to him.`,
+      photoTip: `Enter from the northwest corner arcade for a symmetrical view straight down the colonnade.` },
+    { time: "7:35am", name: "Notre-Dame Cathedral (exterior)", address: "6 Parvis Notre-Dame – Place Jean-Paul II, 75004 Paris",
+      mapsUrl: gmaps(48.8529682, 2.3499021, "ChIJATr1n-Fx5kcRjQb6q6cdQDY"),
+      distance: "~1.3 km, 14 minutes", recTime: "15 minutes",
+      history: `Construction began in 1163 under Bishop Maurice de Sully and took roughly two centuries to complete, making it one of the first Gothic cathedrals built on this scale in France. The cathedral has crowned French kings, hosted Napoleon's coronation in 1804 — where he famously seized the crown from the Pope and placed it on his own head — and survived the Revolution, when it was rededicated as a Temple of Reason and stripped of its statues, many of which were beheaded on the belief they depicted French kings rather than biblical ones. A fire in April 2019 destroyed the spire and roof; the cathedral reopened to the public in December 2024 after a five-year restoration that used traditional techniques and materials wherever possible, including hand-hewn oak beams for the roof frame.`,
+      fact: `The spire lost in the 2019 fire was itself a 19th-century addition by Viollet-le-Duc, not part of the original medieval structure — it has since been rebuilt to his exact design, down to the rooster weathervane at its tip.`,
+      photoTip: `The west façade from directly across the square is the classic shot; the flying buttresses are best seen from Square Jean XXIII behind the apse.`,
+      booking: { label: "Entry to the cathedral is free, no advance ticket required.", url: "https://www.notredamedeparis.fr/en/" },
+      badge: { type: "warn", text: "Free reservation — book the day before" } },
+    { time: "7:55am", name: "Sainte-Chapelle (exterior)", address: "8 Boulevard du Palais, 75001 Paris",
+      mapsUrl: gmaps(48.855375, 2.3449609, "ChIJR3122B9u5kcRaCck3PlB9DM"),
+      distance: "~350 m, 5 minutes", recTime: "5 minutes",
+      history: `Built between 1242 and 1248 by Louis IX to house the Crown of Thorns and other relics he had acquired at extraordinary cost — reportedly half the kingdom's annual revenue — the chapel was completed in barely six years, a remarkably fast build for the period. Its Upper Chapel holds one of the most complete collections of 13th-century stained glass anywhere in the world: 15 windows and a rose window, over 1,100 individual scenes, covering nearly the entire wall surface so the stonework seems to dissolve into color.`,
+      fact: `The relics that justified the chapel's construction have since been relocated to Notre-Dame's treasury.`,
+      photoTip: `The spire is best seen from Boulevard du Palais, looking north.`,
+      booking: { label: "Official timed-entry tickets (for the interior stained glass) at:", url: "https://www.sainte-chapelle.fr/" } },
+    { time: "9:00–12:00", name: "Musée du Louvre", address: "Rue de Rivoli, 75001 Paris",
+      mapsUrl: gmaps(48.8606111, 2.337644, "ChIJD3uTd9hx5kcR1IQvGfr8dbk"),
+      distance: "~700 m, 8 minutes from Sainte-Chapelle", recTime: "Fixed — your 3-hour booking",
+      history: `Originally built as a fortress by Philip II in the late 12th century to defend Paris's western flank against a possible English attack, it was rebuilt as a royal residence through the Renaissance under François I, who also began the museum's core art collection by inviting Leonardo da Vinci to France. Successive kings expanded the palace for three more centuries until the Revolutionary government opened it as a public museum in 1793, a deliberate symbolic act — royal treasures now belonged to the citizens. I.M. Pei's glass pyramid, added in 1989 as the new main entrance, remains debated among purists but has become an icon in its own right, and its 673 glass panes were, contrary to persistent rumor, never actually 666.`,
+      fact: `The museum displays roughly 35,000 works out of a collection of over 600,000 — spend just 30 seconds on each displayed work, and it would take over 100 days to see them all.`,
+      photoTip: `The pyramid reflecting the surrounding Cour Napoléon buildings works best in soft morning light before the plaza fills.`,
+      booking: { label: "You're already ticketed. Official timed entries are exclusively at:", url: "https://ticket.louvre.fr/en" },
+      badge: { type: "ok", text: "Booked" } },
+    { time: "1:15pm", name: "Jardin des Tuileries", address: "Place de la Concorde end / Louvre end, 75001 Paris",
+      mapsUrl: gmaps(48.8634916, 2.3274943, "ChIJAQAAMCxu5kcRx--_4QnbGcI"),
+      distance: "Adjacent to the Louvre", recTime: "15 minutes",
+      history: `Laid out in 1564 for Catherine de' Medici as the garden of the (now-destroyed) Tuileries Palace, it was redesigned in the 1660s by André Le Nôtre — who later designed the gardens of Versailles — into the formal French style still visible today, with its rigid geometric parterres and long central perspective.`,
+      fact: `It was the first Parisian garden opened to the general public, in the late 17th century — a genuinely radical idea for a royal garden at the time.`,
+      photoTip: `The central allée looking back toward the Louvre pyramid lines up almost perfectly around midday.` },
+    { time: "1:45pm", name: "Place de la Concorde", address: "Place de la Concorde, 75008 Paris",
+      mapsUrl: gmaps(48.8656331, 2.3212357, "ChIJAQquYc1v5kcRLKslDuENAxg"),
+      distance: "~900 m, 10 minutes", recTime: "10 minutes",
+      history: `Laid out in the 1750s and originally named Place Louis XV after the reigning king whose equestrian statue once stood at its center, the square was renamed Place de la Révolution during the Terror and became the site of the guillotine, where Louis XVI, Marie Antoinette, and roughly 1,100 others were executed between 1793 and 1795. It was given its current, deliberately conciliatory name — Concorde, meaning harmony — in 1795 as France tried to move past that period. The 3,300-year-old Luxor Obelisk, a gift from the Ottoman viceroy of Egypt in 1836 in exchange for a mechanical clock (which never worked), now stands at its center.`,
+      fact: `The obelisk's hieroglyphs recount the reign of Ramesses II; a golden cap was added in 1998 to replace one stolen in antiquity.`,
+      photoTip: `Stand at the obelisk's base and look down the Champs-Élysées toward the Arc de Triomphe for the axis shot.` },
+    { time: "2:15pm", name: "Musée d'Orsay", address: "Esplanade Valéry Giscard d'Estaing, 75007 Paris",
+      mapsUrl: gmaps(48.8599614, 2.3265614, "ChIJG5Qwtitu5kcR2CNEsYy9cdA"),
+      distance: "~1.1 km across the river via Pont Royal, 12 minutes", recTime: "10 minutes",
+      history: `Housed in the former Gare d'Orsay, a Beaux-Arts railway station built for the 1900 World's Fair and once the terminus for trains to southwestern France, it fell out of use as trains grew too long for its platforms and narrowly escaped demolition in the 1970s before being converted into a museum in 1986. It now holds the world's largest collection of Impressionist and Post-Impressionist masterpieces, effectively bridging the gap in the timeline between the Louvre's collection and the modern art of the Centre Pompidou.`,
+      fact: `The station's original giant clock, once used by travelers to catch their trains, is now one of the museum's most photographed interior features — visitors often line up just to be photographed through its glass face.`,
+      photoTip: `The façade and clock are best photographed from across the Seine, on the Tuileries side.`,
+      booking: { label: "Tickets at the official site (the museum warns against third-party resellers and mirror sites):", url: "https://www.musee-orsay.fr/en/visit/admission-opening-times-tickets" },
+      badge: { type: "ok", text: "Booked" } },
+    { time: "2:45pm", name: "Île Saint-Louis", address: "Île Saint-Louis, 75004 Paris",
+      mapsUrl: gmaps(48.8515572, 2.3574207, "ChIJ5Y5Ovfxx5kcRMHVGaekEwFY"),
+      distance: "Metro Concorde → Sully–Morland (~15 min), or a longer riverside walk", recTime: "30 minutes",
+      history: `Once two uninhabited islets used for grazing cattle and dueling, and known as much for the tolls charged on the timber rafted down the Seine here as for anything else, the island was developed in the 1600s into an elegant residential quarter by the property developer Christophe Marie, whose contract gave the project its name (the Pont Marie still bears it). It has remained one of Paris's quietest, most exclusive addresses ever since, largely untouched by Haussmann's 19th-century boulevard-building.`,
+      fact: `Berthillon, the island's famous ice cream maker, has operated from the same address since 1954.`,
+      photoTip: `The Pont Saint-Louis footbridge, connecting to Île de la Cité, gives a nice view back toward Notre-Dame.` },
+    { time: "3:30pm", name: "Panthéon (exterior)", address: "Place du Panthéon, 75005 Paris",
+      mapsUrl: gmaps(48.8462218, 2.3464138, "ChIJc8mX0udx5kcRWKcjTwDr5QA"),
+      distance: "~1.4 km, 15 minutes", recTime: "10 minutes",
+      history: `Commissioned by Louis XV in 1758 as a church dedicated to Saint Geneviève, Paris's patron saint, in gratitude for his recovery from a serious illness, it was still unfinished when the Revolution broke out and was secularized in 1791, repurposed as a mausoleum for France's most honored citizens. It has flipped back and forth between church and secular mausoleum several times since, depending on which government was in power, before settling into its current role for good in 1885 at Victor Hugo's funeral.`,
+      fact: `Voltaire, Rousseau, Victor Hugo, and Marie Curie are interred beneath its dome; Curie was the first woman honored there on her own merits, in 1995, more than a century after her scientific work began.`,
+      photoTip: `The neoclassical dome, modeled loosely on St. Paul's in London, photographs best from Rue Soufflot looking uphill.`,
+      booking: { label: "Interior + dome-climb tickets, run by the same national monuments authority as the Arc de Triomphe:", url: "https://www.paris-pantheon.fr/" } },
+    { time: "4:15pm", name: "Luxembourg Gardens", address: "Rue de Médicis / Rue de Vaugirard, 75006 Paris",
+      mapsUrl: gmaps(48.8466144, 2.3363309, "ChIJe2jeNttx5kcRi_mJsGHdkQc"),
+      distance: "~600 m, 7 minutes", recTime: "20 minutes",
+      history: `Laid out from 1612 for Marie de' Medici alongside the Luxembourg Palace (now home to the French Senate), in a style meant to evoke the Boboli Gardens of her native Florence — she was so homesick for Italy that she had the palace's original architecture based on the Pitti Palace as well. The gardens later became a haven for artists and writers; Hemingway wrote of hunting pigeons here for food during his lean years in 1920s Paris.`,
+      fact: `The gardens contain over 100 statues, including a scaled-down replica of the Statue of Liberty, cast from the same original plaster model as the New York version.`,
+      photoTip: `The Medici Fountain, tucked in a shaded grotto, is one of the garden's quieter, more photogenic corners.` },
+  ],
+  lunch: { name: "Le Fumoir", address: "6 Rue de l'Amiral de Coligny, 75001 Paris", mapsUrl: gmaps(48.8604263, 2.3409253, "ChIJw8kRaSFu5kcRFhLvX5DjiWY"),
+    desc: `An elegant café-restaurant literally steps from the Louvre's colonnade, popular with a mix of locals and gallery-goers. Fair prices for the location and food that holds up well.` },
+  dinner: { name: "Le Petit Pontoise", address: "9 Rue de Pontoise, 75005 Paris", mapsUrl: gmaps(48.8498704, 2.3521152, "ChIJiREQYeRx5kcRSCall_h0zg4"),
+    desc: `A tiny, old-school Left Bank bistro with a chalkboard menu and no pretension — the kind of place that's been feeding the neighborhood, not tourists, for decades.`,
+    mustTry: `Duck confit or the blanquette de veau.` },
+  backups: [
+    { name: "Conciergerie", address: "2 Boulevard du Palais, 75001 Paris", mapsUrl: gmaps(48.8560114, 2.3454953, "ChIJR3122B9u5kcRajG2bEZLypA"), note: `Right next to Sainte-Chapelle — the former royal palace turned Revolutionary prison where Marie Antoinette spent her last weeks. Fast to visit, easy to fold into the 7:55am stop.` },
+    { name: "Jardin du Palais Royal", address: "8 Rue de Montpensier, 75001 Paris", mapsUrl: gmaps(48.8649723, 2.3378061, "ChIJ5bx0qiVu5kcRs_dMpI5ttiY"), note: `An elegant, quieter garden literally behind the Louvre — a good decompression stop right after your 3-hour visit, before or instead of the Tuileries.` },
+    { name: "Shakespeare and Company", address: "37 Rue de la Bûcherie, 75005 Paris", mapsUrl: gmaps(48.8525632, 2.3471303, "ChIJ_7ZXHuFx5kcRs1LnTeCsOBM"), note: `The legendary English-language bookshop, directly across the river from Notre-Dame — easy to fold into the morning walk.` },
+    { name: "Église Saint-Sulpice", address: "2 Rue Palatine, 75006 Paris", mapsUrl: gmaps(48.8509814, 2.3350051, "ChIJpdzLF9px5kcR_lcYOEdaets"), note: `Paris's second-largest church, right by Luxembourg Gardens — Delacroix murals, a famous astronomical gnomon, far fewer crowds than Notre-Dame.` },
+  ],
+  closing: `Metro back to the hotel.`
+},
+// ============================================================ DAY 3 ============================================================
+{
+  id: "d3", city: "paris", dayLabel: "Day 3", dateShort: "Oct 10",
+  partTitle: "Part 3 — Versailles & Match Day", date: "October 10, 2026",
+  intro: `With an 8:45pm kickoff, this day finally gives Versailles the time it deserves — Palace, Gardens, and the Trianon Estate, at an unhurried pace — followed by a deliberately open afternoon before dinner near the stadium. There's a direct RER C train from Versailles Château Rive Gauche to Pont du Garigliano, right in the same corner of the 16th as both dinner and the match, so nothing here requires backtracking across the city.`,
+  walking: "~4–5 km at Versailles, plus a short walk at each end of the transfers. No fixed plan for the afternoon.",
+  notes: [
+    { type: "warn", label: "Logistics Note", text: `Your hotel isn't directly on the RER C line, so getting to Versailles means metro to a station like Invalides first (~25–30 min), then RER C to Versailles Château Rive Gauche (~35–40 min) — about 60–70 minutes door to door. Leave the hotel by 7:45am to arrive right around the 9:00am opening.` },
+    { type: "warn", label: "Logistics Note", text: `Getting back toward the stadium: RER C direct from Versailles Château Rive Gauche to Pont du Garigliano (18–19 min, no transfer) — the same corner of the 16th arrondissement as tonight's dinner and the match.` },
+    { type: "ok", label: "Pacing Note", text: `The afternoon (roughly 4:15–5:45pm) is intentionally left open — no scheduled stop. After a full Versailles day, that's genuine downtime, not a gap to fill. See the backups below for an idea, if you want one.` },
+  ],
+  stops: [
+    { time: "9:00am", name: "Palace of Versailles", address: "Place d'Armes, 78000 Versailles",
+      mapsUrl: gmaps(48.8048649, 2.1203554, "ChIJdUyx15R95kcRj85ZX8H8OAU"),
+      distance: "~60–70 min from the hotel via metro + RER C (see Logistics Note)", recTime: "~2 hours for the State Apartments and Hall of Mirrors",
+      history: `Begun as Louis XIII's modest hunting lodge in 1623, it was transformed by his son Louis XIV, starting in 1661, into the largest palace in Europe and the seat of French government — a deliberate move to pull the aristocracy away from Paris and keep them, and their political ambitions, under close royal watch. Some 36,000 workers labored on it at points, diverting entire rivers to feed its fountains. The Hall of Mirrors, completed in 1684, was also where the treaty ending World War I was signed in 1919, giving the room a second, darker layer of history on top of its Baroque one.`,
+      fact: `The palace has 2,300 rooms and over 60 hectares of gardens — Louis XIV moved the entire French court and government here permanently in 1682, and it stayed the seat of power until the Revolution in 1789.`,
+      photoTip: `The Hall of Mirrors is brightest and least crowded right at opening — you have the advantage of a 9am slot, so use it.`,
+      booking: { label: "Book the earliest available timed Palace entry slot — October Saturdays sometimes run the Musical Gardens fountain show, which needs the Passport ticket rather than the palace-only ticket:", url: "https://en.chateauversailles.fr/2026-ticketing" },
+      badge: { type: "ok", text: "Booked" } },
+    { time: "11:00am", name: "Gardens of Versailles", address: "Versailles Gardens, 78000 Versailles",
+      mapsUrl: gmaps(48.8048649, 2.1203554, "ChIJdUyx15R95kcRj85ZX8H8OAU"),
+      distance: "Exit directly from the palace", recTime: "2 hours — genuinely unhurried, including the walk out to the Grand Canal",
+      history: `Designed by André Le Nôtre over roughly 40 years starting in 1661, the gardens are the definitive expression of the French formal style — rigid geometry, radial paths, and sightlines engineered so that fountains, statues, and the palace itself all align from key vantage points. The Grand Canal alone is 1.6 km long and was once used for mock naval battles and gondola rides for the court.`,
+      fact: `The gardens' fountains were such an engineering challenge that Louis XIV commissioned the never-completed "Machine de Marly," a giant pumping system on the Seine, just to keep them running.`,
+      photoTip: `The Latona Fountain, looking back up toward the palace façade, is the classic wide shot; the Grand Canal itself is worth the longer walk today, since you have the time.`,
+      badge: { type: "ok", text: "Booked" } },
+    { time: "2:00pm", name: "Grand Trianon & Marie-Antoinette's Estate", address: "Porte Saint-Antoine, 78000 Versailles",
+      mapsUrl: gmaps(48.8145625, 2.1047193, "ChIJ-ac2pb595kcRjWfiSzvnvxk"),
+      distance: "A short walk from the Grand Canal, within the estate", recTime: "1.5 hours",
+      history: `Built in 1687 for Louis XIV as a smaller, more private retreat from the formality of the main palace, the Grand Trianon is faced entirely in pink Languedoc marble and was where the king could receive guests without the rigid court etiquette required elsewhere on the grounds. Marie-Antoinette later made the nearby Petit Trianon and the rustic Queen's Hamlet her own personal domain, a place where she could escape Versailles' court life almost entirely — famously (if apocryphally) associated with the phrase "let them eat cake."`,
+      fact: `The Estate of Trianon opens later than the main palace (noon on weekdays, though it's open from earlier on weekends) — worth knowing if you're ever planning a Versailles day where timing is tighter than today's.`,
+      photoTip: `The pink marble colonnade of the Grand Trianon catches warm afternoon light particularly well.` },
+  ],
+  lunch: { name: "La Flottille", address: "Parc du Château de Versailles", mapsUrl: gmaps(48.8091371, 2.1083631, "ChIJHUtWX5B95kcRFO1gkhwNR-s"),
+    desc: `Right on the Grand Canal, a relaxed sit-down lunch worked naturally into the Gardens walk rather than a rushed stop.` },
+  dinner: { name: "Le Cardinal", address: "5 Place de la Porte de Saint-Cloud, 75016 Paris", mapsUrl: gmaps(48.8373002, 2.2574612, "ChIJN41FPcB65kcRR0c1FWQSirE"),
+    desc: `A well-reviewed French bistro right on Place de la Porte de Saint-Cloud, a 2-minute walk from the stadium — genuinely close, not just "nearby," so there's no rush after dinner.`,
+    mustTry: `Oysters to start, then the duck in peppercorn sauce.` },
+  backups: [
+    { name: "Jardin des Serres d'Auteuil", address: "3 Avenue de la Porte d'Auteuil, 75016 Paris", mapsUrl: gmaps(48.8463076, 2.2521865, "ChIJQWzKlMd65kcRtvMzCcfxEdM"), note: `Free entry, a ~20-minute walk from Pont du Garigliano — a genuinely peaceful botanical garden and greenhouse if you want a low-key idea for the open afternoon.` },
+    { name: "Musée Marmottan Monet", address: "2 Rue Louis Boilly, 75016 Paris", mapsUrl: gmaps(48.8592613, 2.2672282, "ChIJYfRHlFJl5kcRTIXaVRFhx04"), note: `The world's largest Monet collection, a bit further north in the 16th — a good option only if you'd rather spend the open afternoon on something specific.` },
+    { name: "Bois de Boulogne", address: "75016 Paris", mapsUrl: gmaps(48.8619839, 2.2523138, "ChIJ28laW9p65kcRLkyGSRGcV04"), note: `Paris's second-largest park, close to Pont du Garigliano — an easy, unstructured green space if you just want to wander without a destination.` },
+  ],
+  closing: `Walk to Parc des Princes (~10 minutes) after dinner, arriving by 7:45pm for the 8:45pm kickoff.`
+},
+// ============================================================ DAY 4 ============================================================
+{
+  id: "d4", city: "paris", dayLabel: "Day 4", dateShort: "Oct 11",
+  partTitle: "Part 4 — Free Day (Eiffel Tower Summit)", date: "October 11, 2026",
+  intro: `Your Eiffel Tower summit elevator booking (10:00am) anchors this day, and it sits in the far west of the city — a good distance from the Montmartre landmarks in the far north. The day is built as a loop through both: dawn in Montmartre first, then west toward the Tower — with Trocadéro slotted into the buffer time before your entry — then a real interior visit to Napoleon's Tomb at Les Invalides, a sweep back east through the Marais, and north to Opéra before ending in Montmartre/Pigalle for dinner.`,
+  walking: "~6 km on foot, plus four metro hops to cover the geography a fixed morning appointment requires.",
+  notes: [
+    { type: "ok", label: "Booking Note", text: `Eiffel Tower summit by elevator, 10:00am, already booked — arrive by 9:30am to clear security ahead of your slot.` },
+    { type: "warn", label: "Pacing Note", text: `The Napoleon's Tomb interior visit adds about 30 minutes to the middle of the day compared to the original exterior-only stop, so everything from the Marais onward runs about 25 minutes later than before. Nothing else about the day changes.` },
+  ],
+  stops: [
+    { time: "7:00am", name: "Sacré-Cœur Basilica", address: "35 Rue du Chevalier de la Barre, 75018 Paris",
+      mapsUrl: gmaps(48.8867046, 2.3431043, "ChIJ442GNENu5kcRGYUrvgqHw88"),
+      distance: "~2.4 km from the hotel; metro Strasbourg–Saint-Denis → Anvers (~12 min), then a short climb", recTime: "15 minutes",
+      history: `Built between 1875 and 1914 as a national penance project after France's defeat in the Franco-Prussian War and the bloody suppression of the Paris Commune, funded almost entirely by public subscription rather than state money — a deliberate statement of Catholic revival. Its travertine stone, quarried from Château-Landon, secretes calcite when it rains, which is why the basilica's white façade never seems to darken or age the way most Parisian buildings have.`,
+      fact: `The hill it sits on, Montmartre, means "Mount of Martyrs," referring to the 3rd-century beheading of Paris's patron saint, Saint Denis, who according to legend picked up his own severed head and walked several kilometers preaching a sermon before finally collapsing.`,
+      photoTip: `The front steps at dawn are nearly empty — the wide staircase framing the basilica is the classic shot.` },
+    { time: "7:15am", name: "Montmartre Village", address: "Place du Tertre, 75018 Paris",
+      mapsUrl: gmaps(48.8865728, 2.3408278, "ChIJF9eP_k9u5kcRYujwQAgfqvQ"),
+      distance: "Adjacent, 5 minutes", recTime: "30 minutes",
+      history: `A semi-rural artists' village annexed by Paris only in 1860, it kept its own windmills, vineyards, and bohemian, semi-lawless character well into the 20th century, drawing Picasso, Renoir, Modigliani, and Toulouse-Lautrec to its cheap studios and lively cabarets. Picasso painted Les Demoiselles d'Avignon, arguably the founding work of Cubism, in a Montmartre studio building nicknamed the Bateau-Lavoir, just a few streets from Place du Tertre.`,
+      fact: `Montmartre still has a small working vineyard, Clos Montmartre, producing a few hundred bottles a year, auctioned for charity at the annual grape harvest festival.`,
+      photoTip: `Rue de l'Abreuvoir and Rue Norvins have the best-preserved cobblestone-and-ivy village feel.` },
+    { time: "7:45am", name: "Moulin Rouge (exterior)", address: "82 Boulevard de Clichy, 75018 Paris",
+      mapsUrl: gmaps(48.8841232, 2.3322519, "ChIJiQxv_05u5kcRESFIh6-QTvQ"),
+      distance: "~800 m, 10 minutes, on the way down to the metro", recTime: "5 minutes",
+      history: `Opened in 1889, the same year as the Eiffel Tower, it helped invent the cabaret and popularized the can-can as a stage spectacle rather than a spontaneous street dance, drawing artists like Toulouse-Lautrec, whose posters of the venue's performers helped define both the venue's image and the poster-art movement itself.`,
+      fact: `The original building burned down in 1915; the red windmill seen today is a later reconstruction, and its sails have never actually generated power — they're purely decorative.`,
+      photoTip: `Early morning light avoids the crowds that gather here later in the day for photos.` },
+    { time: "8:25am", name: "Trocadéro Esplanade", address: "Place du Trocadéro et du 11 Novembre, 75116 Paris",
+      mapsUrl: gmaps(48.8627982, 2.2876042, "ChIJpSFnZvtv5kcRlSMne7c0v40"),
+      distance: "Depart Moulin Rouge by 8:00am; metro Blanche → Trocadéro (~25 min, one transfer)", recTime: "20 minutes",
+      history: `The current esplanade and its flanking Palais de Chaillot wings were built for the 1937 World's Fair, replacing an earlier Moorish-Byzantine-style palace from 1878 that had grown structurally unsound and unfashionable. The square's name commemorates the 1823 Battle of Trocadero in Spain, a curious bit of naming for a spot now defined almost entirely by its view of a French monument.`,
+      fact: `This terrace is one of the few spots in Paris where the entire Eiffel Tower fits into a single photo without a wide-angle lens.`,
+      photoTip: `Go early, before the crowds and souvenir vendors set up — this slots neatly into the buffer before your Tower entry.` },
+    { time: "10:00am", name: "Eiffel Tower — Summit by Elevator", address: "Avenue Gustave Eiffel, 75007 Paris",
+      mapsUrl: gmaps(48.8583701, 2.2944813, "ChIJLU7jZClu5kcR4PcOOO6p3I0"),
+      distance: "Across the Seine via Pont d'Iéna, ~700 m, 8 minutes from Trocadéro", recTime: "~2 hours total, including elevator queues both ways",
+      history: `Designed by Gustave Eiffel's engineering firm — the actual lead designers were Maurice Koechlin and Émile Nouguier, with Eiffel buying the patent and lending his name — for the 1889 World's Fair to mark the centennial of the French Revolution, it was intended as a temporary 20-year structure and nearly torn down in 1909. It survived because Eiffel had the foresight to install a radio antenna on top, making the tower useful for military and civilian communication just as its permit was expiring. From the summit, 276 meters up, the view stretches roughly 70 km on a clear day.`,
+      fact: `The tower grows about 15 cm taller in summer as the iron structure expands in the heat, and it leans slightly away from the sun during the day as the metal on the sunward side warms and expands faster.`,
+      photoTip: `From the summit, the best shots look north over the curve of the Seine — try to get there before the top level gets crowded with the next elevator group.`,
+      booking: { label: "You're already ticketed for the 10:00am elevator to the summit.", url: "https://www.toureiffel.paris/en/rates-opening-times" },
+      badge: { type: "ok", text: "Booked" } },
+    { time: "12:15pm", name: "Les Invalides", address: "129 Rue de Grenelle, 75007 Paris",
+      mapsUrl: gmaps(48.8557933, 2.3125934, "ChIJv-rX7Ndv5kcRJ0IdTc55HnY"),
+      distance: "~1.8 km, 20-minute walk from the Tower — same arrondissement, no metro needed", recTime: "45 minutes (interior — Dôme Church & Napoleon's Tomb)",
+      history: `Commissioned by Louis XIV in 1670 as a hospital and retirement home for wounded and elderly soldiers — a genuinely progressive social institution for its time, housing up to 4,000 veterans at its peak — its golden dome, added by the great Baroque architect Jules Hardouin-Mansart in 1706, now shelters Napoleon's tomb, which wasn't installed until 1861, twenty years after his remains were returned from Saint Helena. Stepping inside the Dôme Church, the circular crypt sits below floor level, so visitors look down on the sarcophagus from a ring of arches above — a deliberately theatrical piece of 19th-century tomb design by architect Louis Visconti.`,
+      fact: `Napoleon's remains rest inside six nested coffins — iron, mahogany, two lead, ebony, and oak — one inside the next, like a Russian nesting doll.`,
+      photoTip: `The view down onto the sarcophagus from the ring gallery above is the classic shot — try to get a spot along the railing rather than shooting through the crowd at the center.`,
+      booking: { label: "Musée de l'Armée interior + tomb access, at the official site:", url: "https://www.musee-armee.fr/en/your-visit/opening-times-and-prices-1.html" },
+      badge: { type: "ok", text: "Booked" } },
+    { time: "1:00pm", name: "Place des Vosges & Le Marais", address: "Place des Vosges, 75004 Paris",
+      mapsUrl: gmaps(48.8556114, 2.3655266, "ChIJUeiI4P9x5kcRqEwHl6V32GQ"),
+      distance: "Metro La Tour-Maubourg → Saint-Paul (~25 min with a transfer)", recTime: "20 minutes",
+      history: `See Day 2 for the square's history — worth a second, more relaxed pass, or a first look if you skipped it on Louvre day. The surrounding Marais district escaped Baron Haussmann's 19th-century boulevard-building program almost entirely because it had already fallen out of aristocratic fashion by the 1700s, which is exactly why its medieval and Renaissance street pattern survives intact today.`,
+      fact: `The Marais was Paris's Jewish quarter for centuries and remains a center of Jewish life in the city, alongside its status today as a major LGBTQ+ neighborhood and a hub of contemporary art galleries.`,
+      photoTip: `The arcaded walkway around the square's perimeter, especially with the midday light coming through.` },
+    { time: "1:45pm", name: "Centre Pompidou (exterior)", address: "Place Georges Pompidou, 75004 Paris",
+      mapsUrl: gmaps(48.8608316, 2.3517012, "ChIJFwqVS71v5kcRx07AoPuLgBw"),
+      distance: "~600 m, 7 minutes", recTime: "10 minutes",
+      history: `Opened in 1977, designed by the then-unknown architects Renzo Piano and Richard Rogers, who won an international competition with a design that turned the building's structural skeleton and mechanical systems inside-out, freeing the interior floors to be vast, flexible, column-free space. It was radical and controversial at the time — critics called it an oil refinery — but has since become one of the most influential buildings of the 20th century and a template for high-tech architecture worldwide. The museum has been closed for a major renovation since 2025, expected to last several years, so an exterior visit is the only option regardless of preference right now.`,
+      fact: `The color coding on the exposed pipework is functional: blue for air, green for water, yellow for electricity, red for movement (elevators and escalators).`,
+      photoTip: `The sloped plaza in front captures the full tangle of exterior pipework.` },
+    { time: "2:00pm", name: "Hôtel de Ville", address: "Place de l'Hôtel de Ville, 75004 Paris",
+      mapsUrl: gmaps(48.8564826, 2.3524135, "ChIJi1uPs_1x5kcRbh8M8XJSNMA"),
+      distance: "~800 m, 9 minutes", recTime: "10 minutes",
+      history: `Paris's city government has occupied this site since 1357, though the current building is a Renaissance-revival reconstruction completed in 1892, replacing the original 17th-century town hall, which burned down during the violent final days of the Paris Commune in 1871, when retreating Communards set fire to it along with much of central Paris.`,
+      fact: `Its façade is studded with 108 statues of notable Parisians, each one selected and sculpted individually — a project that took decades to complete.`,
+      photoTip: `The square in front often hosts temporary installations, from ice rinks in winter to beach volleyball courts in summer — check what's on before you go.` },
+    { time: "2:35pm", name: "Palais Garnier", address: "Place de l'Opéra, 75009 Paris",
+      mapsUrl: gmaps(48.8719697, 2.3316014, "ChIJOYNm1DBu5kcRZwdtKBzyq6k"),
+      distance: "Metro Hôtel de Ville → Opéra (~15 min with a transfer)", recTime: "15 minutes (exterior + lobby if open)",
+      history: `Built between 1861 and 1875 under Napoleon III, designed by the then largely unknown 35-year-old architect Charles Garnier, who won a design competition against 170 other entrants by proposing something entirely different from the Neo-Palladian style the judges expected — a maximalist mix of Baroque, Renaissance, and Second Empire opulence he later called simply "Napoléon III style." Its legendary chandelier and labyrinthine backstage, including a genuine underground water table beneath the building, inspired Gaston Leroux's "The Phantom of the Opera."`,
+      fact: `A counterweight from the chandelier fell in 1896, killing a stagehand — an incident widely believed to have inspired the chandelier-crash scene in Leroux's novel, published just eleven years later.`,
+      photoTip: `The façade from Place de l'Opéra, or the Grand Escalier if you go inside.`,
+      booking: { label: "Self-guided visit tickets at the official site:", url: "https://www.operadeparis.fr/en/visits/palais-garnier" } },
+    { time: "2:55pm", name: "Galeries Lafayette Rooftop", address: "40 Boulevard Haussmann, 75009 Paris",
+      mapsUrl: gmaps(48.873629, 2.332015, "ChIJSXEyCTdu5kcRjWZ8CnrNIlY"),
+      distance: "5-minute walk", recTime: "15 minutes",
+      history: `The department store opened in 1912, its Art Nouveau glass dome — 43 meters tall and inspired by Byzantine architecture — designed to rival the grand department stores of London and New York and cement Paris's status as the capital of luxury retail.`,
+      fact: `The rooftop terrace is free and one of the only elevated viewpoints in Paris that costs nothing, with a clear sightline to the Eiffel Tower, the Sacré-Cœur, and the Opéra dome all at once — a nice bookend to the summit view from earlier in the day.`,
+      photoTip: `Look south for a skyline shot that lines up the Eiffel Tower and the Opéra dome in one frame.` },
+  ],
+  lunch: { name: "L'As du Fallafel", address: "34 Rue des Rosiers, 75004 Paris", mapsUrl: gmaps(48.8574067, 2.3591962, "ChIJL5QZXQJu5kcRwsTfM6YEA3E"),
+    desc: `The best-value lunch in central Paris, a stuffed falafel pita for under €10, right in the Marais as you pass through. Always a line, always worth it.` },
+  dinner: { name: "Bouillon Pigalle", address: "22 Boulevard de Clichy, 75018 Paris", mapsUrl: gmaps(48.8826242, 2.3374171, "ChIJVb7Sx0Vu5kcR5gDcYjssPWw"),
+    desc: `A modern revival of the old Parisian "bouillon" concept: honest, cheap French classics in a grand belle-époque room. Expect a short line that moves fast — and it brings you right back to this morning's Montmartre neighborhood for a fitting close to the day.`,
+    mustTry: `Escargots or the steak-frites.` },
+  backups: [
+    { name: "Musée Rodin", address: "77 Rue de Varenne, 75007 Paris", mapsUrl: gmaps(48.8553072, 2.3158354, "ChIJQ9vMHipw5kcRWHC2ESjYaGQ"), note: `A sculpture garden right next to Les Invalides — The Thinker sits outside. If the summit visit runs short, this is the easiest, closest add of the day.` },
+    { name: "Rue Cler", address: "Rue Cler, 75007 Paris", mapsUrl: gmaps(48.857448, 2.3061987, "ChIJh32iCt9v5kcRv8zeQH_P9hI"), note: `A lively pedestrian market street near the Eiffel Tower — cheese shops, bakeries, a good spot to grab a coffee or snack between the Tower and Invalides.` },
+    { name: "Église Saint-Eustache", address: "2 Impasse Saint-Eustache, 75001 Paris", mapsUrl: gmaps(48.8633903, 2.3451211, "ChIJK6mOeCJu5kcRpE3-oj_GxD4"), note: `A vast Gothic church near Centre Pompidou/Les Halles — free, genuinely striking stained glass, and far fewer crowds than Notre-Dame.` },
+    { name: "Place de la Bastille", address: "Place de la Bastille, 75004 Paris", mapsUrl: gmaps(48.8532379, 2.3688654, "ChIJKZKprAFy5kcREOvlZ8mwHiM"), note: `The July Column and the site of the 1789 storming — a reasonable extension east of the Marais if you're moving faster than planned.` },
+  ],
+  closing: `Rest at the hotel in the late afternoon before heading back up to Pigalle for dinner (~10 min by metro from Opéra) — this is your buffer before tomorrow's early train.`
+},
+// ============================================================ DAY 5 ============================================================
+{
+  id: "d5", city: "lux", dayLabel: "Day 5", dateShort: "Oct 12",
+  partTitle: "Part 5 — Luxembourg City", date: "October 12, 2026",
+  transfer: `<b>Departure Day — Paris → Luxembourg.</b> Train leaves Gare de l'Est at 7:20am, a 5–8 minute walk from the hotel. No touring this morning — checkout, a quick bakery breakfast on the way, then the train. Most bakeries near the hotel open by 6:30am. Train: Paris Gare de l'Est → Luxembourg, departing 7:20am, arriving 9:35am.`,
+  intro: `You arrive at 9:35am, but your onward train to Brussels leaves at 6:09am the next morning — this is really one afternoon and evening, not a full day.`,
+  hotel: { label: "Hotel", address: "2 Rue du Fort Olisy, Pfaffenthal, 2261 Luxembourg", url: gmaps(49.6130176, 6.1379163, "ChIJr4uNWDJPlUcRkwy_lkQ78DQ") },
+  walking: "~4 km, plus the elevator.",
+  notes: [
+    { type: "warn", label: "Logistics Note", text: `Your hotel sits right by the free Pfaffenthal public elevator, which solves the one real obstacle in Luxembourg City: the steep valley between the lower town and the upper Old Town. Drop bags at the hotel if check-in allows (or ask the hotel to hold luggage), then head straight up to the Old Town via the elevator — it saves a genuinely steep climb in both directions.` },
+  ],
+  stops: [
+    { time: "1:00pm", name: "Chemin de la Corniche", address: "Chemin de la Corniche, Ville-Haute, Luxembourg City",
+      mapsUrl: gmaps(49.6101047, 6.1343636, "ChIJOwUzkdJIlUcRsm1WX7BzObU"),
+      distance: "Via the Pfaffenthal elevator to the Old Town, then ~800 m", recTime: "20 minutes",
+      history: `Built along the remnants of the city's fortifications — once described by military engineers as among the strongest in Europe, having been besieged and rebuilt by Burgundians, Habsburgs, Spanish, French, and Prussians over the centuries, each adding their own layer of defenses. The fortress was dismantled after the 1867 Treaty of London declared Luxembourg a permanently neutral state, a process that took sixteen years and used 24 million kilograms of dynamite to demolish walls up to 8 meters thick.`,
+      fact: `Often called "Europe's most beautiful balcony," a nickname dating back to at least the early 20th century, coined by admiring visitors taking in the view over the Alzette valley below.`,
+      photoTip: `Looking down toward the Alzette river bend and Neumünster Abbey is the classic frame.` },
+    { time: "1:30pm", name: "Bock Casemates", address: "Montée de Clausen, 1343 Grund, Luxembourg City",
+      mapsUrl: gmaps(49.6117717, 6.1366992, "ChIJNW7n4zJPlUcRc95AAJEMmcY"),
+      distance: "~400 m, 5 minutes", recTime: "45 minutes",
+      history: `The Bock promontory has been fortified since 963 AD, when Count Siegfried built the first castle here — the founding structure of Luxembourg City itself. The casemates as they exist now, roughly 17 km of tunnels at their peak, were carved and expanded by Spanish military engineers starting in 1644 and later enlarged by the Austrians in the 18th century, eventually earning the city the nickname "Gibraltar of the North" for its perceived impregnability.`,
+      fact: `The tunnels could once shelter up to 35,000 people and their livestock during a siege, complete with bakeries, slaughterhouses, and workshops carved into the rock.`,
+      photoTip: `The Bock promontory, viewed from the Grund below, shows the layered stonework well.`,
+      booking: { label: "Open through November 2, 2026; ~€8, no advance booking needed in October. Tickets via:", url: "https://www.luxembourg-city.com/en" } },
+    { time: "2:45pm", name: "Notre-Dame Cathedral", address: "Rue Notre Dame, 2240 Ville-Haute, Luxembourg City",
+      mapsUrl: gmaps(49.6099441, 6.131558, "ChIJ8Yc5p9RIlUcRxiaoQPb0gI0"),
+      distance: "~600 m, 7 minutes", recTime: "10 minutes",
+      history: `Built in the early 17th century as a Jesuit church, consecrated in 1621, it became the national cathedral in 1870 after Luxembourg's diocese was formally established, and it holds the crypt of the Grand Ducal family alongside the tomb of the blind King John of Bohemia, a Luxembourg-born medieval ruler famous for riding into a fatal battle at Crécy in 1346 despite being unable to see.`,
+      fact: `Its Baroque west portal, added in 1613, is considered one of the earliest and finest examples of the style north of the Alps.`,
+      photoTip: `The twin spires photograph best from Boulevard Roosevelt, looking uphill.` },
+    { time: "3:15pm", name: "Grand Ducal Palace (exterior)", address: "17 Rue du Marché-aux-Herbes, 1728 Ville-Haute, Luxembourg City",
+      mapsUrl: gmaps(49.6108879, 6.1327603, "ChIJX3FcNi1PlUcRiAHqH_ajLS0"),
+      distance: "~300 m, 4 minutes", recTime: "10 minutes",
+      history: `Built originally as the city's first town hall in 1418, destroyed by a gunpowder explosion in the building's own basement in 1554, and rebuilt twenty years later in an ornate Flemish Renaissance style with the distinctive stepped gables still visible today. It has served as the official residence and workplace of the Grand Ducal family since 1890, when Luxembourg's line of succession separated from the Dutch monarchy after centuries of shared rulers.`,
+      fact: `Guided interior tours run only from mid-July through the end of August, so October is exterior-only — the ceremonial guard is still on duty daily regardless, in a dark blue uniform rather than the more famous bright red of other European royal guards.`,
+      photoTip: `The ornate stone façade catches good side light in the late afternoon.`,
+      booking: { label: "Interior tours (summer only, not available for your dates):", url: "https://www.luxembourg-city.com/en/place/iconic-buildings/grand-ducal-palace" } },
+    { time: "3:45pm", name: "Place Guillaume II & Place d'Armes", address: "Place Guillaume II, 1648 Ville-Haute, Luxembourg City",
+      mapsUrl: gmaps(49.6106802, 6.1311262, "ChIJq5mRM9NIlUcR8ElHIwxZKp8"),
+      distance: "~200 m, 3 minutes", recTime: "20 minutes",
+      history: `Place Guillaume II was built over a demolished Franciscan convent in the early 19th century, named for the Grand Duke who commissioned the neoclassical Town Hall there in 1830; Place d'Armes, one block over, was originally the city's military parade ground before being converted into a public garden and café square in the 19th century as the old fortress lost its military purpose.`,
+      fact: `The equestrian statue at the center of Place Guillaume II depicts William II, who was simultaneously King of the Netherlands and Grand Duke of Luxembourg — a dual role the two countries shared under one monarch until 1890, when the lack of a male Dutch heir triggered the split.`,
+      photoTip: `Place d'Armes' café terraces make a nice foreground for a shot of the Town Hall's neoclassical façade.` },
+  ],
+  dinner: { name: "Café-Restaurant Um Dierfgen", address: "6 Côte d'Eich, 1450 Luxembourg City", mapsUrl: gmaps(49.6121453, 6.1316291, "ChIJRbJf6CxPlUcRF8N1gBYQ8L8"),
+    desc: `A cozy, genuinely traditional Luxembourgish kitchen in the Old Town — reservations recommended, it fills up.`,
+    mustTry: `Judd mat gaardebounen (smoked pork collar with broad beans, the national dish) or kniddelen with bacon and cream.` },
+  backups: [
+    { name: "Neumünster Abbey", address: "28 Rue Münster, 2160 Grund, Luxembourg City", mapsUrl: gmaps(49.6104853, 6.1363856, "ChIJ020-aM1IlUcRgRNhsNgxsAc"), note: `A former abbey turned cultural center, right in the Grund on your Corniche walk — easy to duck into if you're moving faster than expected.` },
+    { name: "Pont Adolphe", address: "Ville-Haute, Luxembourg City", mapsUrl: gmaps(49.6083531, 6.1270177, "ChIJ2-f5X9RIlUcRznEwz2XUlf0"), note: `One of the city's most iconic views — a monumental bridge over the valley, about a 10-minute walk from Place Guillaume II.` },
+    { name: "Musée Dräi Eechelen", address: "5 Park Dräi Eechelen, 1499 Clausen, Luxembourg City", mapsUrl: gmaps(49.6163693, 6.139253, "ChIJAbH8mzFPlUcRNmqMzPQ2sjU"), note: `A fortress museum in the restored Fort Thüngen, in the Kirchberg district — a bit further out (~20 min), free admission, worth it if you have a real extra hour.` },
+  ],
+  closing: `Early night — the train to Brussels leaves at 6:09am.`
+},
+// ============================================================ DAY 6 ============================================================
+{
+  id: "d6", city: "brussels", dayLabel: "Day 6", dateShort: "Oct 13",
+  partTitle: "Part 6 — Brussels", date: "October 13, 2026",
+  transfer: `<b>Departure Day — Luxembourg → Brussels.</b> Train: Luxembourg → Bruxelles-Central, departing 6:09am, arriving 9:23am. No touring this morning — just the transfer.`,
+  intro: `A full day inside a compact historic core — the entire route below stays within roughly 1.5 km of Grand Place, so there's no wasted transit time today.`,
+  hotel: { label: "Hotel", address: "Rue du Vieux Marché aux Grains 8-12, 1000 Brussels", url: gmapsAddr("Rue du Vieux Marché aux Grains 8-12, 1000 Brussels") },
+  walking: "~5 km.",
+  notes: [
+    { type: "ok", label: "Pacing Note", text: `This is a comfortably full day without being punishing. It deliberately skips the Atomium — a worthwhile sight, but a 40-minute round-trip detour by metro that would cut into the historic-center route without adding proportional value on a single-day visit.` },
+  ],
+  stops: [
+    { time: "9:45am", name: "Grand Place", address: "Grote Markt, 1000 Brussels",
+      mapsUrl: gmaps(50.8467887, 4.3524356, "ChIJ8fEURn_Ew0cRts_ij101PLA"),
+      distance: "~500 m from Bruxelles-Central, 6 minutes", recTime: "20 minutes",
+      history: `The medieval market square was largely rebuilt in just four years after a devastating French bombardment in August 1695 — ordered by Louis XIV's Marshal de Villeroy as a diversionary tactic during the Nine Years' War — destroyed nearly 4,000 buildings and most of the surrounding guildhalls. The Gothic Town Hall, remarkably, survived largely intact, supposedly because the French used its spire as their targeting reference point and were reluctant to destroy their own aiming marker. Victor Hugo, exiled in Brussels in the 1850s after criticizing Napoleon III, lived on the square and called it "the most beautiful square in the world."`,
+      fact: `Every two years, the square is carpeted with roughly 500,000 begonias for the Brussels Flower Carpet festival, a tradition dating to 1971.`,
+      photoTip: `Early morning before tour groups arrive — the guildhall gilding catches the low sun well.` },
+    { time: "10:15am", name: "Manneken Pis", address: "Rue de l'Étuve 31, 1000 Brussels",
+      mapsUrl: gmaps(50.844993, 4.349989, "ChIJ0T1eGXnEw0cRH8GwIKZAuBc"),
+      distance: "~300 m, 4 minutes", recTime: "5 minutes",
+      history: `The small bronze fountain, in its current form dating to 1619 by sculptor Jérôme Duquesnoy the Elder, has become disproportionately famous relative to its size — barely 60 cm tall — replacing an earlier stone version from at least the 1450s. Several legends explain the statue, the most enduring involving a boy who supposedly extinguished a lit fuse threatening the city walls, though historians generally treat these as folklore invented well after the statue's creation.`,
+      fact: `The statue owns a wardrobe of hundreds of costumes, dating back to a gift from Maximilian Emmanuel of Bavaria in 1698, changed regularly for festivals and visiting dignitaries and stored at the nearby GardeRobe MannekenPis museum.`,
+      photoTip: `Go early — this tiny statue draws a surprising crowd by mid-morning.` },
+    { time: "10:30am", name: "Galeries Royales Saint-Hubert", address: "Galerie du Roi 5, 1000 Brussels",
+      mapsUrl: gmaps(50.8480832, 4.3552506, "ChIJu1XHbn_Ew0cRMNenwioHHhM"),
+      distance: "~250 m, 3 minutes", recTime: "15 minutes",
+      history: `Opened in 1847, it's considered Europe's oldest still-operating covered shopping arcade, designed by Jean-Pierre Cluysenaar to bring elegant, weatherproof shopping to the city center by replacing a dense, crime-ridden slum neighborhood — a slum-clearance and urban-renewal project that was controversial even at the time for the way it displaced poorer residents.`,
+      fact: `The arcade's success inspired similar glass-roofed galleries across Europe, including Milan's Galleria Vittorio Emanuele II, built two decades later on a strikingly similar model.`,
+      photoTip: `Shoot down the arcade's central axis for the full glass-vaulted ceiling.` },
+    { time: "11:00am", name: "Cathedral of St. Michael and St. Gudula", address: "Esplanade de la Sainte-Gudule, 1000 Brussels",
+      mapsUrl: gmaps(50.8479083, 4.3601497, "ChIJvTZ4_3_Dw0cRzSOE0556hYQ"),
+      distance: "~450 m, 5 minutes", recTime: "15 minutes",
+      history: `Construction spanned roughly 300 years, from the 13th to the 15th century, blending Romanesque foundations with increasingly refined Gothic styles as building techniques evolved over the generations of masons who worked on it. It has hosted royal weddings and funerals for the Belgian monarchy since the country's founding in 1830, including the funeral of nearly every Belgian king.`,
+      fact: `Its twin towers, at 69 meters, were left deliberately unfinished at the top — a common medieval practice, since a shorter, thicker tower placed less structural strain on foundations that were often none too certain to begin with.`,
+      photoTip: `The west façade from the esplanade, with the entrance steps in frame.`,
+      booking: { label: "Free to enter; the treasury/crypt has a small separate fee, payable on-site.", url: "https://www.cathedralestmichel.be/" } },
+    { time: "11:30am", name: "Mont des Arts", address: "Mont des Arts, 1000 Brussels",
+      mapsUrl: gmaps(50.8437985, 4.3570733, "ChIJjSTSIn7Ew0cRI-10N3x4Tlw"),
+      distance: "~500 m, 6 minutes", recTime: "10 minutes",
+      history: `Developed in stages through the 20th century as a terraced garden connecting the lower and upper towns, replacing a dense, unplanned neighborhood cleared in the 1890s in preparation for a royal building project that then stalled for decades — the site sat as a temporary garden for over 60 years before its current formal layout was finished in 1958 for the World's Fair.`,
+      fact: `The name — "Hill of the Arts" — reflects the cluster of museums and the Royal Library that now surround it, cementing a cultural identity the site didn't originally have.`,
+      photoTip: `The formal garden terraces frame a good skyline shot back over the lower town's rooftops.` },
+    { time: "12:00pm", name: "Royal Palace (exterior) & Parc de Bruxelles", address: "Rue Brederode 16, 1000 Brussels",
+      mapsUrl: gmaps(50.8420026, 4.3623406, "ChIJg1inSYHEw0cRPXqckguLZjM"),
+      distance: "~600 m, 7 minutes", recTime: "15 minutes",
+      history: `The palace, the king's official workplace (though not his residence — the royal family actually lives at Laeken, outside the center), was rebuilt in its current neoclassical form in stages through the late 19th century under King Leopold II, who was notoriously obsessed with grand architectural projects funded by the brutal exploitation of the Congo Free State. Parc de Bruxelles alongside it follows a formal French garden layout laid out in the 1770s, one of the oldest urban parks in Belgium and originally the hunting grounds of the Dukes of Brabant.`,
+      fact: `One room inside the palace, the Mirror Room, has a ceiling covered in 1.6 million iridescent jewel-beetle wing cases, a 2002 installation by contemporary artist Jan Fabre, commissioned specifically for that space.`,
+      photoTip: `The palace façade from the park side, with the formal lawns in the foreground.` },
+    { time: "1:30pm", name: "Comic Strip Route", address: "Comics Art Museum, Rue des Sables 20, 1000 Brussels",
+      mapsUrl: gmaps(50.8510292, 4.360146, "ChIJwQ0CZX_Dw0cRAgyG-NX_zKA"),
+      distance: "~700 m, 8 minutes", recTime: "45–60 minutes, walking the route",
+      history: `Brussels began painting giant comic-strip murals on blank building walls in 1991, celebrating its status as a historic home of Franco-Belgian comics — Tintin, the Smurfs, Lucky Luke, and Spirou were all created by Belgian artists. Over 60 murals now scatter through the city center, part of a deliberate cultural branding effort that grew out of the closure of the Waucquez department store, whose Art Nouveau building (designed by Victor Horta) became the Comics Art Museum itself.`,
+      fact: `Hergé, creator of Tintin, was born in Brussels in 1907, and the Comics Art Museum occupies that former Art Nouveau department store designed by Horta, one of the founding figures of the entire Art Nouveau movement.`,
+      photoTip: `The Tintin mural on Rue de l'Étuve is the most photographed — go when the street is relatively quiet.` },
+    { time: "2:30pm", name: "Sablon District", address: "Place du Grand Sablon, 1000 Brussels",
+      mapsUrl: gmaps(50.8411521, 4.3549844, "ChIJ46EatH3Ew0cRmugnyVXe8Fo"),
+      distance: "~1.2 km, 14 minutes", recTime: "20 minutes",
+      history: `Once a marshy area outside the medieval walls used as a sandy ("sablon") burial ground for the poor, the district developed into an upscale antiques and chocolate quarter starting in the 15th century around Notre-Dame du Sablon church, built by the crossbowmen's guild after a legendary Marian statue was reportedly smuggled into the city from Antwerp in a small boat in 1348.`,
+      fact: `The neighboring Petit Sablon garden has 48 small bronze statues representing Brussels' medieval guilds, each one holding a tool or symbol of its specific trade.`,
+      photoTip: `The Gothic church façade from the square, especially with the antique stalls (weekend mornings) in frame.` },
+  ],
+  lunch: { name: "Fin de Siècle", address: "Rue des Chartreux 9, 1000 Brussels", mapsUrl: gmaps(50.8489127, 4.3470991, "ChIJnYO474fDw0cRbjsIpJgHpy4"),
+    desc: `No reservations taken, gets crowded, but this is where Bruxellois actually eat. Big portions of carbonnade flamande and stoemp, honest prices.` },
+  dinner: { name: "Le Pré-Salé", address: "Rue de Flandre 20, 1000 Brussels", mapsUrl: gmaps(50.850876, 4.346782, "ChIJddTjKobDw0cR0WXYErJ0Tpk"),
+    desc: `A family-run moules-frites institution set in a former butcher's shop with an open kitchen. Reserve ahead — it fills up.`,
+    mustTry: `Mussels in white wine and celery, the most traditional preparation.` },
+  backups: [
+    { name: "Magritte Museum", address: "Place Royale 1, 1000 Brussels", mapsUrl: gmaps(50.8424057, 4.3586407, "ChIJPYlgS4fEw0cRhva9IKvp0iQ"), note: `Right by the Royal Palace and Mont des Arts — already on today's route, so this is the easiest add if you have an hour spare.` },
+    { name: "Place Sainte-Catherine", address: "Place Sainte-Catherine, 1000 Brussels", mapsUrl: gmaps(50.8506452, 4.3487934, "ChIJ4WdGTYbDw0cR2vAN-Jqccnc"), note: `A former fish market turned seafood-restaurant square, close to your hotel — good for an evening wander even after dinner.` },
+    { name: "Parc du Cinquantenaire", address: "1000 Brussels", mapsUrl: gmaps(50.841393, 4.3904833, "ChIJX1tyKaTEw0cRWjLH8frzAq8"), note: `A monumental triumphal arch and museum park — worth it only if you have a genuine extra hour, since it's about 25 minutes from Grand Place.` },
+  ],
+  closing: `Early night — 7am train to Bruges tomorrow.`
+},
+// ============================================================ DAY 7 ============================================================
+{
+  id: "d7", city: "bruges", dayLabel: "Day 7", dateShort: "Oct 14",
+  partTitle: "Part 7 — Bruges", date: "October 14, 2026",
+  transfer: `<b>Departure Day — Brussels → Bruges.</b> Trains from Bruxelles-Central to Bruges run every 15–20 minutes with no reservation required — any SNCB service works on a same-day ticket. A ~7:00am departure gets you into Bruges around 8:00–8:10am (journey time is 53–65 minutes depending on the specific train).`,
+  intro: `Bruges is small and dense — everything on today's route is close, which makes for an efficient, unhurried full day.`,
+  hotel: { label: "Hotel", address: "Ezelstraat 42, 8000 Bruges", url: gmapsAddr("Ezelstraat 42, 8000 Bruges") },
+  walking: "~6 km.",
+  notes: [
+    { type: "warn", label: "Logistics Note", text: `From Bruges station to the hotel is about a 20-minute walk. Head into the historic center first and check in later — it's on the way regardless.` },
+  ],
+  stops: [
+    { time: "8:30am", name: "Markt (Market Square)", address: "Markt, 8000 Bruges",
+      mapsUrl: gmaps(51.208619, 3.223992, "ChIJ3X8JDNBQw0cRboJw-O2qc6o"),
+      distance: "~1 km from the station, 12 minutes", recTime: "10 minutes",
+      history: `The square has been Bruges' commercial heart since the 10th century, when the city was one of the wealthiest ports in medieval Europe, a hub of the Hanseatic trade network and home to what many historians consider the world's first commodity exchange, the Beurs, which gave the modern word "bourse" (stock exchange) its name.`,
+      fact: `The colorful stepped-gable guildhouses ringing the square were mostly rebuilt in the 19th century in a romanticized medieval style — genuine medieval Bruges was actually far less colorful, its buildings mostly plain brick.`,
+      photoTip: `Arrive before the horse-drawn carriages and tour groups set up, usually by 9:30–10am.` },
+    { time: "8:45am", name: "Belfry of Bruges", address: "Markt 7, 8000 Bruges",
+      mapsUrl: gmaps(51.2081466, 3.2248011, "ChIJiw5pqdpQw0cRWIG9Y_lvVGk"),
+      distance: "Adjacent", recTime: "15 minutes (exterior); 45–60 minutes if climbing",
+      history: `Built in phases between the 13th and 15th centuries, the 83-meter tower served as a treasury, watchtower, and symbol of the city's civic independence from feudal lords — bell towers like this one were a direct expression of a merchant city's wealth and self-governance, distinct from the church towers that dominated skylines elsewhere. Fire destroyed the original wooden spire twice, in 1280 and 1493; the current octagonal top dates from a 1822 rebuild after the second fire's replacement itself proved unstable. It's been a UNESCO World Heritage Site since 1999, part of a group listing of Belgian and French belfries.`,
+      fact: `It leans slightly off vertical — about a meter — but has done so safely for centuries, the result of the tower's weight settling unevenly into the marshy Bruges ground.`,
+      photoTip: `The Rozenhoedkaai canal bend, two minutes away, gives the classic Belfry-over-water postcard shot — worth doing both.`,
+      booking: { label: "Timed-entry climb tickets (~€15, 366 steps) — book a slot the evening before:", url: "https://www.museabrugge.be/en/tickets" } },
+    { time: "9:15am", name: "Burg Square", address: "Burg, 8000 Bruges",
+      mapsUrl: gmaps(51.2085062, 3.2268383, "ChIJ2ZxAi89Qw0cRSwJ0ZY6jCaA"),
+      distance: "~150 m, 2 minutes", recTime: "15 minutes",
+      history: `Once the site of a 9th-century fortified castle built by Baldwin Iron Arm, the first Count of Flanders, as protection against Viking raids, it's now home to the City Hall — Belgium's oldest, dating to 1376, and one of the earliest examples of Gothic civic (rather than religious) architecture anywhere in Europe — and the Basilica of the Holy Blood, which claims to house a relic of Christ's blood brought back from the Second Crusade in 1150 by Thierry of Alsace, Count of Flanders.`,
+      fact: `The Basilica of the Holy Blood is technically two chapels stacked on top of each other — a plain Romanesque lower chapel dedicated to St. Basil, and an ornately decorated 16th-century upper one built specifically to house the relic.`,
+      photoTip: `The Gothic City Hall façade, with its statue niches, is best photographed straight-on from the center of the square.` },
+    { time: "9:45am", name: "Canal Walk — Groenerei, Dijver, Rozenhoedkaai", address: "Rozenhoedkaai, 8000 Bruges",
+      mapsUrl: gmaps(51.207137, 3.2275063, "ChIJvQ79csVQw0cR_Ay3LBG4Wlo"),
+      distance: "~500 m along the route", recTime: "20 minutes",
+      history: `The canals were originally the city's commercial lifelines, once connected directly to the North Sea via the Zwin inlet — the reason medieval Bruges was one of Europe's richest trading cities, a member of the Hanseatic League with direct sea access. That access silted up gradually through the 15th century, and by the 1500s ships could no longer reach the city at all, triggering a long economic decline that shifted Flanders' commercial center to Antwerp instead.`,
+      fact: `That centuries-long stagnation is exactly why Bruges' medieval core survived so intact — there was little money for redevelopment for roughly 400 years, freezing the city's appearance in place until tourism revived it in the late 19th century.`,
+      photoTip: `The Rozenhoedkaai bridge, looking back toward the Belfry over the water, is the single most photographed view in Bruges.` },
+    { time: "10:15am", name: "Church of Our Lady", address: "Mariastraat, 8000 Bruges",
+      mapsUrl: gmaps(51.20469, 3.2244474, "ChIJNZJSMdtQw0cR651stB8oSB0"),
+      distance: "~250 m, 3 minutes", recTime: "10 minutes (exterior/quick look)",
+      history: `Built mainly in the 13th–15th centuries, its 115.5-meter brick spire is the second-tallest brickwork tower in the world, a genuine engineering achievement given the soft, waterlogged Flemish soil the whole city is built on.`,
+      fact: `It holds Michelangelo's "Madonna and Child" (c. 1504) — the only Michelangelo sculpture to leave Italy during his lifetime, purchased by a wealthy Bruges merchant family, the Mouscrons, and nearly stolen twice in modern history: once by Napoleon's army and once by Nazi Germany, both times eventually recovered.`,
+      photoTip: `The spire is visible from most of the southern old town — a good landmark to orient by throughout the day.`,
+      booking: { label: "Small fee for the area housing the Michelangelo sculpture:", url: "https://www.museabrugge.be/en" } },
+    { time: "10:45am", name: "Béguinage (Begijnhof)", address: "Begijnhof, 8000 Bruges",
+      mapsUrl: gmaps(51.2012811, 3.2230458, "ChIJH7XA2txQw0cRK-buBeYdJl8"),
+      distance: "~400 m, 5 minutes", recTime: "15 minutes",
+      history: `Founded in 1245 by Margaret of Constantinople, Countess of Flanders, as a community for beguines — lay religious women who lived communally, took no permanent vows, and could support themselves through work like lacemaking — it's one of the best-preserved of Belgium's 13 UNESCO-listed béguinages, now home to Benedictine nuns since the beguine movement itself died out in the 20th century.`,
+      fact: `The whitewashed houses and tranquil courtyard are deliberately unchanged; visitors are asked to stay silent inside the walls out of respect for the residents who still live there.`,
+      photoTip: `The entrance gate framed by poplar trees, especially in soft morning light.` },
+    { time: "11:15am", name: "Lake of Love (Minnewater)", address: "Minnewater, 8000 Bruges",
+      mapsUrl: gmaps(51.2000104, 3.2247317, "ChIJyyAn0MJQw0cROpGLlzoXy3s"),
+      distance: "Adjacent", recTime: "10 minutes",
+      history: `Once a busy inland harbor and lock system connecting Bruges to the canal network toward Ghent, it was romanticized in the 19th century — as the city itself became a tourist destination for the first time — into the park and small lake seen today, with the name "Minnewater" likely a folk-etymology reinterpretation of an older, more mundane word for a water reservoir.`,
+      fact: `Local legend holds that couples who kiss on the Lovers' Bridge here will stay together forever — popular enough that it's a common local wedding-photo spot even for couples who don't otherwise believe the legend.`,
+      photoTip: `The swans on the water with the Poertoren tower in the background.` },
+    { time: "12:15pm", name: "Jan van Eyckplein & Spinolarei/Spiegelrei Canals", address: "Jan van Eyckplein, 8000 Bruges",
+      mapsUrl: gmaps(51.2115666, 3.2255688, "ChIJuUjyKM5Qw0cRc_D5mD6BOZY"),
+      distance: "~700 m, 8 minutes", recTime: "15 minutes",
+      history: `Once the city's main inner harbor, where Hanseatic merchant ships docked directly to unload goods bound for warehouses just steps away. Named for the painter Jan van Eyck, who worked in Bruges from the 1430s as court painter to Philip the Good, Duke of Burgundy, and whose meticulous oil-painting technique — still studied today — helped make Bruges a major center of Northern Renaissance art.`,
+      fact: `A statue of van Eyck stands at the center of the square, erected in 1878 as part of a broader 19th-century movement to reclaim Bruges' medieval golden age as a source of civic pride.`,
+      photoTip: `A quieter, less-photographed stretch of canal than Rozenhoedkaai — good for a calmer shot.` },
+    { time: "2:00pm", name: "Windmills on the Kruisvest", address: "Kruisvest 3, 8000 Bruges",
+      mapsUrl: gmaps(51.2154587, 3.2381475, "ChIJt5Ky9rVQw0cRo4lndCrZCdw"),
+      distance: "~1.3 km, 15 minutes", recTime: "20 minutes",
+      history: `Four surviving windmills line the old 17th-century city ramparts, remnants of around twenty that once ringed Bruges and ground grain for the city's bakers. Sint-Janshuismolen, built in 1770, was moved to its current spot from elsewhere on the ramparts in 1911 and remains the only one still fully operational, grinding flour on open days when wind conditions allow.`,
+      fact: `The windmills sit atop the old earthen fortifications, so the walk here doubles as a green, elevated loop around the edge of the historic center, tracing the exact line of the medieval city walls.`,
+      photoTip: `Late-day light on the sails, with the old moat in the foreground.`,
+      booking: { label: "Interior visits (small fee, seasonal hours):", url: "https://www.museabrugge.be/en" } },
+  ],
+  lunch: { name: "Cambrinus", address: "Philipstockstraat 19, 8000 Bruges", mapsUrl: gmaps(51.2095952, 3.2261624, "ChIJX6E76M9Qw0cR_rsHyTrPo_c"),
+    desc: `A historic beer hall a block off the Markt, with an enormous Belgian beer list and honest, generously portioned Flemish cooking rather than the inflated tourist-menu prices right on the square.` },
+  dinner: { name: "Vlaminck'14", address: "Vlamingstraat 14, 8000 Bruges", mapsUrl: gmaps(51.2097673, 3.2247402, "ChIJD0hnItBQw0cRdHZgRvgNKzw"),
+    desc: `Traditional Flemish cooking inside a protected 18th-century UNESCO-listed building, a short walk from the Markt but priced for locals, not tourists.`,
+    mustTry: `The beef stew (stoverij) or the vol-au-vent.` },
+  backups: [
+    { name: "Historium Bruges", address: "Markt 1, 8000 Bruges", mapsUrl: gmaps(51.2090888, 3.224951, "ChIJF34eG9BQw0cRRLjUwqUcOSE"), note: `An immersive, multimedia walk through medieval Bruges, right on the Markt — easy to fold into your 8:30–8:45am stop there.` },
+    { name: "Groeninge Museum", address: "Dijver 12, 8000 Bruges", mapsUrl: gmaps(51.2052205, 3.2266679, "ChIJ31BGJsVQw0cRFo72nuLdfhY"), note: `Flemish masters, right along the Dijver canal on your route between Burg Square and Church of Our Lady — walkable to add without a detour.` },
+    { name: "Kruispoort Gate", address: "Langestraat 191, 8000 Bruges", mapsUrl: gmaps(51.2125778, 3.2400947, "ChIJy6LZcbZQw0cRhIUGIlzX1B8"), note: `A further stretch of the ramparts walk past the windmills on your route, with two more windmills and a quieter, more local feel.` },
+  ],
+  closing: `Early night — the 7:11am train to Paris tomorrow.`
+},
+// ============================================================ DAY 8 ============================================================
+{
+  id: "d8", city: "paris", dayLabel: "Day 8", dateShort: "Oct 15",
+  partTitle: "Departure Day — Bruges → Paris → New York", date: "October 15, 2026",
+  intro: `Your train from Bruges (7:11am) arrives Paris Gare du Nord at 10:05am. First stop, right after dropping your bags: Sainte-Chapelle, the one thing from this trip you're buying a dedicated ticket for on your way out of the city. Your flight departs Orly at 6:50pm — working backward, budget 3 hours before an international flight (arrive at the airport by ~3:50pm), plus 40–50 minutes of transit from central Paris to Orly, plus a margin for the RER/Orlyval with bags — meaning you should leave central Paris by around 3:00pm at the latest. This version of the day still leaves comfortable room for that.`,
+  notes: [
+    { type: "warn", label: "Logistics Note", text: `Use the left-luggage lockers at Gare du Nord rather than carrying bags around for the last loop — it's worth the few euros.` },
+  ],
+  stops: [
+    { time: "10:30am", name: "Bag Drop — Gare du Nord Lockers", address: "18 Rue de Dunkerque, 75010 Paris",
+      mapsUrl: gmaps(48.8809706, 2.3561432, "ChIJf6NY_Gtu5kcRDHnd0mg3tk8"),
+      distance: "Starting point", recTime: "10 minutes",
+      history: `Gare du Nord is Europe's busiest railway station by passenger volume, opened in its current form in 1864 and designed by Jacques Hittorff, whose earlier work on the Place de la Concorde and Champs-Élysées made him one of the leading architects of Second Empire Paris. The station's cavernous main hall, with its 34-meter-high glass-and-iron roof, was one of the largest enclosed spaces in the world when it was built.`,
+      fact: `Its façade is topped with 23 statues, each representing a city served by the station's rail lines, ranging from nearby Amiens to distant Warsaw and Vienna.`,
+      photoTip: `The iron-and-glass train hall itself is worth a glance on your way through.` },
+    { time: "11:00am", name: "Sainte-Chapelle", address: "8 Boulevard du Palais, 75001 Paris",
+      mapsUrl: gmaps(48.855375, 2.3449609, "ChIJR3122B9u5kcRaCck3PlB9DM"),
+      distance: "Metro toward Île de la Cité (~20 min)", recTime: "45 minutes — a real interior visit, entering safely before the 1pm weekday security closure",
+      history: `Built between 1242 and 1248 by Louis IX to house the Crown of Thorns and other relics he had acquired at extraordinary cost — reportedly half the kingdom's annual revenue — the chapel was completed in barely six years, a remarkably fast build for the period. Its Upper Chapel holds one of the most complete collections of 13th-century stained glass anywhere in the world: 15 windows and a rose window, over 1,100 individual scenes, covering nearly the entire wall surface so the stonework seems to dissolve into color. The chapel closes daily from roughly 1:00–2:15pm on weekdays for a security procedure tied to the law courts next door — this morning slot avoids that entirely.`,
+      fact: `The relics that justified the chapel's construction have since been relocated to Notre-Dame's treasury.`,
+      photoTip: `Morning light works best for the stained glass — you're getting exactly that with this slot.`,
+      booking: { label: "Official timed-entry tickets at:", url: "https://www.sainte-chapelle.fr/" },
+      badge: { type: "ok", text: "Booked" } },
+    { time: "12:10pm", name: "Grands Boulevards & Passage des Panoramas", address: "11 Boulevard Montmartre, 75002 Paris",
+      mapsUrl: gmaps(48.8715109, 2.341904, "ChIJM_82Pjxu5kcRe4g8VvgAGQI"),
+      distance: "~1.5 km, 17 minutes", recTime: "20 minutes",
+      history: `Opened in 1799, it's the oldest of Paris's covered shopping arcades, built on the grounds of a former mansion and named for two rotunda buildings at its entrance that displayed enormous 360-degree panoramic paintings — a wildly popular immersive entertainment format in the decades before photography existed. The arcade was among the first public spaces in Paris lit by gas lamps, in 1817, a genuine novelty that drew crowds just to see it illuminated after dark.`,
+      fact: `The arcade appears in the 1963 film "Charade," starring Audrey Hepburn and Cary Grant, its narrow glass-roofed lanes barely changed from a century earlier.`,
+      photoTip: `The glass-roofed corridor from the Boulevard Montmartre entrance.` },
+    { time: "12:45pm", name: "Opéra / Place Vendôme Area", address: "Place Vendôme, 75001 Paris",
+      mapsUrl: gmaps(48.8674008, 2.3295635, "ChIJBWOM7jFu5kcR55OhA4bMQGA"),
+      distance: "~800 m, 9 minutes", recTime: "30 minutes",
+      history: `Place Vendôme was laid out under Louis XIV in the 1690s as a showcase royal square, originally ringed with uniform façades designed by Jules Hardouin-Mansart while the actual buildings behind them were built separately by private owners — an early example of the king dictating urban design without funding the construction himself. The column at its center, added by Napoleon in 1810 to celebrate his victory at Austerlitz, was cast from the bronze of 1,200 melted-down enemy cannons and modeled directly on Trajan's Column in Rome.`,
+      fact: `The square has housed the Ritz Paris since 1898 and remains one of the most expensive pieces of real estate in the world, still ringed almost entirely by fine jewelers.`,
+      photoTip: `The column and surrounding façades from the center of the octagonal square.` },
+    { time: "1:30pm", name: "Église Saint-Vincent-de-Paul", address: "Square Cavaillé-Coll, 75010 Paris",
+      mapsUrl: gmaps(48.8786767, 2.3518474, "ChIJuQGMfWxu5kcRbvpyrWq4Agc"),
+      distance: "Metro toward Gare du Nord (~15 min)", recTime: "10 minutes",
+      history: `Built between 1824 and 1844 in a neoclassical style modeled on early Christian basilicas, with a temple-like Corinthian portico, it was among the first major churches constructed in Paris after the Revolution had halted large-scale religious building for decades.`,
+      fact: `Its interior frescoes, by Hippolyte Flandrin — a student of the great Neoclassical painter Ingres — form one of the largest 19th-century mural cycles in Paris, though the exterior is deliberately understated compared to the richly decorated interior.`,
+      photoTip: `The twin bell towers from the elevated square in front.` },
+  ],
+  lunch: { name: "Bouillon Chartier", address: "7 Rue du Faubourg Montmartre, 75009 Paris", mapsUrl: gmaps(48.8719224, 2.3430304, "ChIJ4xutfT5u5kcRaJn2NkiOhPU"),
+    desc: `A Paris institution since 1896, a genuine "bouillon" with soaring belle-époque décor, cheap and fast. A line is normal; it moves quickly.`,
+    mustTry: `Duck confit, or the classic œuf mayonnaise starter.` },
+  backups: [
+    { name: "Musée Grévin", address: "10 Boulevard Montmartre, 75009 Paris", mapsUrl: gmaps(48.8718378, 2.3422204, "ChIJVUrgmz5u5kcRWPSN-T8a730"), note: `A wax museum right next to Passage des Panoramas, already on your route — a fun, low-effort add if you're ahead of schedule.` },
+    { name: "Place de la République", address: "Place de la République, 75011 Paris", mapsUrl: gmaps(48.8676635, 2.3640304, "ChIJD1KC6Qhu5kcRIL1p24HDH1w"), note: `A large historic square close to the 10th arrondissement and Gare du Nord — an easy detour on the walk back to collect your bags.` },
+  ],
+  airport: { name: "Orly Airport", address: "94390 Orly, France", mapsUrl: gmaps(48.7299182, 2.3732304, "ChIJHTtq-rF15kcRIoTbQ9feeJ0"),
+    steps: [
+      "1:55pm — walk back to Gare du Nord (10–15 min), collect bags.",
+      "2:10pm — Metro/RER B toward Antony, transfer to Orlyval, arrive Orly.",
+      "~2:55–3:10pm — arrival at Orly, still comfortably ahead of the 6:50pm flight, with room for security and any delays.",
+    ] },
+  closing: `Safe travels home.`
+},
+];
+
+/* =======================================================================
+   PERSISTENCE
+   ======================================================================= */
+const STORAGE_KEY = "trip_dossier_checked_v1";
+let checkedState = {};
+try {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  checkedState = raw ? JSON.parse(raw) : {};
+} catch (e) { checkedState = {}; }
+
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedState)); } catch (e) { /* ignore */ }
+}
+
+function slug(dayId, name) {
+  return dayId + "-" + name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
+/* =======================================================================
+   RENDER
+   ======================================================================= */
+const dayTabsEl = document.getElementById("dayTabs");
+const dayPanelsEl = document.getElementById("dayPanels");
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function renderNoteCard(note) {
+  const cls = note.type === "ok" ? "note-card personal" : "note-card";
+  return `<div class="${cls}"><b>${escapeHtml(note.label)}:</b> ${note.text}</div>`;
+}
+
+function renderStop(day, stop) {
+  const id = slug(day.id, stop.name);
+  const checked = !!checkedState[id];
+  let badgeHtml = "";
+  if (stop.badge) {
+    const cls = stop.badge.type === "warn" ? "badge warn" : "badge";
+    badgeHtml = `<span class="${cls}">${escapeHtml(stop.badge.text)}</span>`;
+  }
+  let bookingHtml = "";
+  if (stop.booking) {
+    bookingHtml = `<div class="booking">🎟 ${stop.booking.label} <a href="${stop.booking.url}" target="_blank" rel="noopener">${stop.booking.url}</a></div>`;
+  }
+  return `
+  <li class="stop${checked ? " done" : ""}" data-id="${id}">
+    <div class="stop-row" data-role="toggle">
+      <span class="stop-time">${escapeHtml(stop.time)}</span>
+      <span class="stop-name">${escapeHtml(stop.name)}</span>
+      ${badgeHtml}
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="stop-check${checked ? " checked" : ""}" data-role="check" aria-label="Mark visited">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+    <div class="stop-preview">
+      <a class="maplink-mini" href="${stop.mapsUrl}" target="_blank" rel="noopener">📍 Google Maps</a>
+      <span class="dist-text">${stop.distance}</span>
+    </div>
+    <div class="stop-detail">
+      <div class="row"><b>Address</b>${escapeHtml(stop.address)}
+        <div><a class="maplink" href="${stop.mapsUrl}" target="_blank" rel="noopener">📍 Open in Google Maps</a></div>
+      </div>
+      <div class="row"><b>Distance from previous stop</b>${stop.distance}</div>
+      <div class="row"><b>Recommended time</b>${stop.recTime}</div>
+      <div class="row"><b>History</b>${stop.history}</div>
+      <div class="row"><b>Interesting fact</b>${stop.fact}</div>
+      <div class="row"><b>Photo tip</b>${stop.photoTip}</div>
+      ${bookingHtml}
+    </div>
+  </li>`;
+}
+
+function renderMeal(day, meal, kind) {
+  const id = slug(day.id, kind + "-" + meal.name);
+  const icon = kind === "lunch" ? "🥐" : "🍽";
+  return `
+  <li class="stop meal" data-id="${id}">
+    <div class="stop-row" data-role="toggle">
+      <span class="meal-icon">${icon}</span>
+      <span class="stop-time" style="min-width:auto;text-transform:capitalize;">${kind}</span>
+      <span class="stop-name">${escapeHtml(meal.name)}</span>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="stop-preview">
+      <a class="maplink-mini" href="${meal.mapsUrl}" target="_blank" rel="noopener">📍 Google Maps</a>
+      <span class="dist-text">${escapeHtml(meal.address)}</span>
+    </div>
+    <div class="stop-detail" style="padding-left:16px;">
+      <div class="row"><b>Address</b>${escapeHtml(meal.address)}
+        <div><a class="maplink" href="${meal.mapsUrl}" target="_blank" rel="noopener">📍 Open in Google Maps</a></div>
+      </div>
+      <div class="row"><b>About</b>${meal.desc}</div>
+      ${meal.mustTry ? `<div class="row"><b>Must try</b>${meal.mustTry}</div>` : ""}
+    </div>
+  </li>`;
+}
+
+function renderBackups(day) {
+  if (!day.backups || !day.backups.length) return "";
+  const items = day.backups.map(b => `
+    <div class="backup-item">
+      <span class="bname">${escapeHtml(b.name)}</span> (${escapeHtml(b.address)}) —
+      <a class="maplink-inline" href="${b.mapsUrl}" target="_blank" rel="noopener">Google Maps</a>.
+      ${b.note}
+    </div>`).join("");
+  return `
+  <div class="collapsible" data-role="collapsible">
+    <div class="collapsible-head" data-role="collapsible-toggle">
+      <span>🗂 Backup spots — if you have extra time (${day.backups.length})</span>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:auto;"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="collapsible-body">${items}</div>
+  </div>`;
+}
+
+function renderDay(day) {
+  const cityInfo = CITY[day.city];
+  let html = "";
+
+  html += `<div class="day-head" style="--accent:${cityInfo.accent};--accent-deep:${cityInfo.accentDeep};">
+    <p class="part-title">${escapeHtml(day.partTitle)}</p>
+    <p class="part-date">${escapeHtml(day.date)} · ${cityInfo.name}</p>
+  </div>`;
+
+  let summaryInner = "";
+  if (day.transfer) summaryInner += `<div class="transfer-card">🚆 ${day.transfer}</div>`;
+  summaryInner += `<p class="day-intro">${day.intro}</p>`;
+  let chips = "";
+  if (day.hotel) chips += `<div class="info-chip"><b>Hotel:</b> ${escapeHtml(day.hotel.address)} — <a href="${day.hotel.url}" target="_blank" rel="noopener">Map</a></div>`;
+  if (day.walking) chips += `<div class="info-chip"><b>Walking:</b> ${day.walking}</div>`;
+  if (chips) summaryInner += `<div class="info-strip">${chips}</div>`;
+  if (day.notes) day.notes.forEach(n => { summaryInner += renderNoteCard(n); });
+  if (day.personalNotes) day.personalNotes.forEach(p => { summaryInner += `<div class="note-card personal">${p}</div>`; });
+
+  html += `
+  <div class="collapsible" data-role="collapsible">
+    <div class="collapsible-head" data-role="collapsible-toggle">
+      <span>📋 Day summary</span>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:auto;"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="collapsible-body summary-body">${summaryInner}</div>
+  </div>`;
+
+  html += `<div class="section-label">Sightseeing stops</div>`;
+  html += `<ul class="stop-list">${day.stops.map(s => renderStop(day, s)).join("")}</ul>`;
+
+  if (day.lunch || day.dinner) {
+    html += `<div class="section-label">Meals</div>`;
+    html += `<ul class="stop-list">`;
+    if (day.lunch) html += renderMeal(day, day.lunch, "lunch");
+    if (day.dinner) html += renderMeal(day, day.dinner, "dinner");
+    html += `</ul>`;
+  }
+
+  if (day.backups && day.backups.length) {
+    html += `<div class="section-label">In case you have time</div>`;
+    html += renderBackups(day);
+  }
+
+  if (day.airport) {
+    html += `<div class="section-label">Getting to the airport</div>`;
+    html += `<div class="transfer-card">
+      ✈️ <b>${escapeHtml(day.airport.name)}</b> — ${escapeHtml(day.airport.address)} —
+      <a href="${day.airport.mapsUrl}" target="_blank" rel="noopener">Open in Google Maps</a>
+      <div style="margin-top:8px;">${day.airport.steps.map(s => `<div>${escapeHtml(s)}</div>`).join("")}</div>
+    </div>`;
+  }
+
+  if (day.closing) html += `<p class="closing-note">${day.closing}</p>`;
+
+  return html;
+}
+
+function countStops(day) { return day.stops.length; }
+function countChecked(day) {
+  return day.stops.filter(s => checkedState[slug(day.id, s.name)]).length;
+}
+
+function buildTabs() {
+  dayTabsEl.innerHTML = TRIP.map((day, i) => {
+    const cityInfo = CITY[day.city];
+    return `<button class="day-tab" data-index="${i}" style="--accent:${cityInfo.accent};--accent-deep:${cityInfo.accentDeep};">
+      <span class="dt-day">${day.dayLabel} · ${cityInfo.name}</span>
+      <span class="dt-count" data-role="tab-count">${countChecked(day)}/${countStops(day)}</span>
+    </button>`;
+  }).join("");
+}
+
+function buildPanels() {
+  dayPanelsEl.innerHTML = TRIP.map((day, i) => `<div class="day-panel" data-index="${i}" id="panel-${i}">${renderDay(day)}</div>`).join("");
+}
+
+function updateProgress() {
+  let total = 0, done = 0;
+  TRIP.forEach(day => { total += countStops(day); done += countChecked(day); });
+  document.getElementById("progressText").textContent = `${done} / ${total} spots visited`;
+  document.getElementById("progressPct").textContent = total ? Math.round(done / total * 100) + "%" : "0%";
+  document.getElementById("progressFill").style.width = (total ? (done / total * 100) : 0) + "%";
+  document.querySelectorAll(".day-tab").forEach((tab, i) => {
+    const day = TRIP[i];
+    const el = tab.querySelector('[data-role="tab-count"]');
+    if (el) el.textContent = `${countChecked(day)}/${countStops(day)}`;
+  });
+}
+
+let activeIndex = 0;
+function selectDay(i) {
+  activeIndex = i;
+  document.querySelectorAll(".day-tab").forEach((t, idx) => t.classList.toggle("active", idx === i));
+  document.querySelectorAll(".day-panel").forEach((p, idx) => p.classList.toggle("active", idx === i));
+  const activeTab = document.querySelector(`.day-tab[data-index="${i}"]`);
+  if (activeTab && typeof activeTab.scrollIntoView === "function") {
+    try { activeTab.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" }); } catch (e) { /* ignore */ }
+  }
+}
+
+function init() {
+  buildTabs();
+  buildPanels();
+  updateProgress();
+
+  // default day: if today falls within the trip, jump to it; else Day 1
+  const today = new Date();
+  const tripStart = new Date(2026, 9, 8);
+  const tripEnd = new Date(2026, 9, 15);
+  let defaultIndex = 0;
+  if (today >= tripStart && today <= tripEnd) {
+    defaultIndex = Math.min(7, Math.floor((today - tripStart) / 86400000));
+  }
+  selectDay(defaultIndex);
+
+  dayTabsEl.addEventListener("click", (e) => {
+    const btn = e.target.closest(".day-tab");
+    if (!btn) return;
+    selectDay(parseInt(btn.dataset.index, 10));
+  });
+
+  dayPanelsEl.addEventListener("click", (e) => {
+    const checkEl = e.target.closest('[data-role="check"]');
+    if (checkEl) {
+      e.stopPropagation();
+      const li = checkEl.closest("li.stop");
+      const id = li.dataset.id;
+      checkedState[id] = !checkedState[id];
+      saveState();
+      li.classList.toggle("done", checkedState[id]);
+      checkEl.classList.toggle("checked", checkedState[id]);
+      updateProgress();
+      return;
+    }
+    const backupToggle = e.target.closest('[data-role="collapsible-toggle"]');
+    if (backupToggle) {
+      backupToggle.closest(".collapsible").classList.toggle("open");
+      return;
+    }
+    const rowToggle = e.target.closest('[data-role="toggle"]');
+    if (rowToggle) {
+      // don't toggle open state if the click was on a link inside the row
+      if (e.target.closest("a")) return;
+      rowToggle.closest("li.stop").classList.toggle("open");
+    }
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    if (!confirm("Reset all checked spots? This can't be undone.")) return;
+    checkedState = {};
+    saveState();
+    document.querySelectorAll("li.stop").forEach(li => {
+      li.classList.remove("done");
+      const chk = li.querySelector('[data-role="check"]');
+      if (chk) chk.classList.remove("checked");
+    });
+    updateProgress();
+  });
+}
+
+init();
+</script>
+</body>
+</html>
